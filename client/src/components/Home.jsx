@@ -40,14 +40,14 @@ const HomePage = () => {
         return () => window.removeEventListener('resize', checkTouchDevice);
     }, []);
 
-    // Auto-slide functionality
-    useEffect(() => {
-        const interval = setInterval(() => {
-            setCurrentSlide((prev) => (prev + 1) % services.length);
-        }, 1500);
+   // Auto-slide functionality
+useEffect(() => {
+    const interval = setInterval(() => {
+        setCurrentSlide((prev) => (prev + 1) % services.length);
+    }, 2000); 
 
-        return () => clearInterval(interval);
-    }, [services.length]);
+    return () => clearInterval(interval);
+}, [services.length]);
 
     const scrollToServices = () => {
         const servicesSection = document.getElementById("services");
@@ -232,7 +232,7 @@ const HomePage = () => {
                                 onMouseLeave={handleNavButtonMouseLeave}
                                 style={{
                                     color: "rgba(0, 0, 0, 1)",
-                                    fontSize: '0.8rem',
+                                    fontSize: '10rem',
                                     borderColor: "rgba(74, 72, 72, 1)",
                                     fontWeight: '600',
                                     transition: 'all 0.15s ease',
