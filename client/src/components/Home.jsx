@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import heroBackground from "/images/logob.jpg";
+import heroBackground from "/images/logob.webp";
 
 const HomePage = () => {
     const [currentSlide, setCurrentSlide] = useState(0);
@@ -14,12 +14,12 @@ const HomePage = () => {
         {
             title: "Dealers For Reputed Brands Of Solar Pumps",
             description: "As an authorized dealer, the company supplies and services solar pumps from a curated selection of highly-regarded manufacturers for reliable and sustainable water solutions.",
-            image: "/images/solar pump.jpg"
+            image: "/images/solar pump.webp"
         },
         {
             title: "Irrigation Related Tech Projects",
             description: "Smart irrigation control systems that optimize water usage and maximize crop yield with precision technology.",
-            image: "/images/service-controller.jpg"
+            image: "/images/service-controller.webp"
         }
     ];
 
@@ -190,39 +190,38 @@ useEffect(() => {
             {/* Header/Navbar - Different color than buttons */}
             <nav className="fixed-top w-100" style={{ 
                 zIndex: 1050, 
-                backgroundColor: "#79b92cff", // Dark blue-gray navbar
-                minHeight: "50px",
-                borderBottom: "2px solid rgba(255, 255, 255, 0.6)" // Blue accent border
+                backgroundColor: "#79b92cff",
+                minHeight: "60px",
+                borderBottom: "2px solid rgba(255, 255, 255, 0.6)"
             }}>
                 <div className="container h-100">
                     <div className="d-flex justify-content-between align-items-center h-100 py-1">
                         {/* Buttons - White with black text, blue click effect */}
-                        <div className="d-flex gap-1 gap-md-2">
+                        <div className="d-flex gap-2 gap-md-3">
                             <button
-                                className="btn btn-outline-light border-2 text-decoration-none px-2 py-1"
-                                onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
-                                onTouchStart={handleNavButtonTouchStart}
-                                onTouchEnd={handleNavButtonTouchEnd}
-                                onMouseDown={handleNavButtonMouseDown}
-                                onMouseUp={handleNavButtonMouseUp}
-                                onMouseEnter={handleNavButtonMouseEnter}
-                                onMouseLeave={handleNavButtonMouseLeave}
-                                style={{
-                                    color: "rgba(0, 0, 0, 1)",
-                                    fontSize: '0.8rem',
-                                    borderColor: "rgba(74, 72, 72, 1)",
-                                    fontWeight: '600',
-                                    transition: 'all 0.15s ease',
-                                    borderRadius: '8px',
-                                    minHeight: '32px',
-                                    cursor: 'pointer',
-                                    backgroundColor: 'rgba(241, 238, 238, 1)' // White buttons
-                                }}
-                            >
-                                Home
-                            </button>
+    className="btn btn-outline-light border-2 text-decoration-none nav-button"
+    onClick={() => window.location.href = '/Photos'}
+    onTouchStart={handleNavButtonTouchStart}
+    onTouchEnd={handleNavButtonTouchEnd}
+    onMouseDown={handleNavButtonMouseDown}
+    onMouseUp={handleNavButtonMouseUp}
+    onMouseEnter={handleNavButtonMouseEnter}
+    onMouseLeave={handleNavButtonMouseLeave}
+    style={{
+        marginTop: '5px',
+        color: "rgba(0, 0, 0, 1)",
+        borderColor: "rgba(74, 72, 72, 1)",
+        fontWeight: '600',
+        transition: 'all 0.15s ease',
+        borderRadius: '8px',
+        cursor: 'pointer',
+        backgroundColor: 'rgba(241, 238, 238, 1)'
+    }}
+>
+    Photos
+</button>
                             <button
-                                className="btn btn-outline-light border-2 text-decoration-none px-2 py-1"
+                                className="btn btn-outline-light border-2 text-decoration-none nav-button"
                                 onClick={scrollToServices}
                                 onTouchStart={handleNavButtonTouchStart}
                                 onTouchEnd={handleNavButtonTouchEnd}
@@ -231,22 +230,21 @@ useEffect(() => {
                                 onMouseEnter={handleNavButtonMouseEnter}
                                 onMouseLeave={handleNavButtonMouseLeave}
                                 style={{
+                                    marginTop: '5px',
                                     color: "rgba(0, 0, 0, 1)",
-                                    fontSize: '10rem',
                                     borderColor: "rgba(74, 72, 72, 1)",
                                     fontWeight: '600',
                                     transition: 'all 0.15s ease',
                                     borderRadius: '8px',
-                                    minHeight: '32px',
                                     cursor: 'pointer',
-                                    backgroundColor: 'rgba(255, 255, 255, 1)' // White buttons
+                                    backgroundColor: 'rgba(255, 255, 255, 1)'
                                 }}
                             >
                                 Services
                             </button>
                             {/* Contact button - hidden on mobile, visible on tablet and desktop */}
                             <button
-                                className="btn btn-outline-light border-2 text-decoration-none px-2 py-1 d-none d-md-block"
+                                className="btn btn-outline-light border-2 text-decoration-none nav-button d-none d-md-block"
                                 onClick={scrollToContact}
                                 onTouchStart={handleNavButtonTouchStart}
                                 onTouchEnd={handleNavButtonTouchEnd}
@@ -255,15 +253,14 @@ useEffect(() => {
                                 onMouseEnter={handleNavButtonMouseEnter}
                                 onMouseLeave={handleNavButtonMouseLeave}
                                 style={{
+                                    marginTop: '5px',
                                     color: "rgba(0, 0, 0, 1)",
-                                    fontSize: '0.8rem',
                                     borderColor: "rgba(74, 72, 72, 1)",
                                     fontWeight: '600',
                                     transition: 'all 0.15s ease',
                                     borderRadius: '8px',
-                                    minHeight: '32px',
                                     cursor: 'pointer',
-                                    backgroundColor: 'rgba(255, 255, 255, 1)' // White buttons
+                                    backgroundColor: 'rgba(255, 255, 255, 1)'
                                 }}
                             >
                                 Contact
@@ -591,7 +588,7 @@ useEffect(() => {
         height: 100vh;
         min-height: 600px;
         position: relative;
-        margin-top: 50px; /* Reduced to match new navbar height */
+        margin-top: 60px; /* Adjusted to match navbar height */
     }
 
     /* Main hero content container */
@@ -656,6 +653,24 @@ useEffect(() => {
         }
     }
 
+    /* Tablet and Desktop Navbar Button Styles */
+    @media (min-width: 769px) {
+        .nav-button {
+            font-size: 1rem !important;
+            padding: 10px 20px !important;
+            min-height: 40px !important;
+            font-weight: 600 !important;
+        }
+        
+        nav {
+            min-height: 60px !important;
+        }
+        
+        .hero-section {
+            margin-top: 60px !important;
+        }
+    }
+
     /* Tablet Media Query - Keep existing behavior */
     @media (max-width: 1024px) and (min-width: 769px) {
         .hero-section {
@@ -663,7 +678,6 @@ useEffect(() => {
             background-size: cover;
             height: 90vh;
             min-height: 500px;
-            margin-top: 50px; /* Reduced to match new navbar height */
         }
 
         .hero-title {
@@ -687,7 +701,7 @@ useEffect(() => {
             background-size: cover;
             height: 80vh;
             min-height: 400px;
-            margin-top: 50px; /* Reduced to match new navbar height */
+            margin-top: 50px; /* Keep mobile navbar height */
         }
 
         .hero-title {
@@ -716,14 +730,20 @@ useEffect(() => {
             justify-content: space-between;
         }
 
-        nav .d-flex.gap-1 {
+        nav .d-flex.gap-2 {
             gap: 0.4rem !important;
         }
 
-        /* Ensure buttons are clickable on mobile */
-        .btn {
-            min-height: 32px; /* Reduced from 44px */
-            padding: 8px 12px !important; /* Reduced padding */
+        /* Mobile navbar buttons - keep existing mobile styles */
+        .nav-button {
+            font-size: 0.8rem !important;
+            padding: 8px 12px !important;
+            min-height: 32px !important;
+            font-weight: 600 !important;
+        }
+        
+        nav {
+            min-height: 50px !important;
         }
     }
 
@@ -733,7 +753,7 @@ useEffect(() => {
             background-size: cover;
             height: 75vh;
             min-height: 350px;
-            margin-top: 50px; /* Reduced to match new navbar height */
+            margin-top: 50px;
         }
 
         .hero-title {
@@ -752,22 +772,24 @@ useEffect(() => {
         }
 
         /* Mobile navbar buttons - further reduced */
-        nav .btn {
-            margin-top: 4px;
-            margin-bottom: 4px;
-            padding: 2px 9px !important; /* Further reduced */
-            font-size: 0.7rem !important; /* Smaller font */
-            min-height: 20px; /* Smaller height */
+        .nav-button {
+            padding: 6px 10px !important;
+            font-size: 0.75rem !important;
+            min-height: 30px !important;
+        }
+
+        nav .d-flex.gap-2 {
+            gap: 0.3rem !important;
         }
     }
 
     /* Extra Small Mobile */
     @media (max-width: 360px) {
         /* Small adjustments for extra small screens */
-        nav .btn {
+        .nav-button {
             padding: 5px 8px !important;
             font-size: 0.7rem !important;
-            min-height: 28px;
+            min-height: 28px !important;
         }
     }
 
@@ -926,27 +948,11 @@ useEffect(() => {
         scroll-margin-top: 60px;
     }
 
-    /* Navbar height adjustments for all views */
-    nav {
-        min-height: 50px;
-    }
-
     /* Ensure buttons are properly clickable on all devices */
     .btn {
         cursor: pointer;
         user-select: none;
         -webkit-tap-highlight-color: transparent;
-    }
-
-    /* Improve touch targets for mobile and tablet */
-    @media (max-width: 1024px) {
-        .btn {
-            min-height: 32px; /* Reduced from 44px */
-            min-width: 32px; /* Reduced from 44px */
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
     }
 
     /* NEW NEON GLOW LOGO STYLES - MAXIMIZED SIZE */
@@ -960,27 +966,20 @@ useEffect(() => {
     cursor: pointer;
     transition: all 0.3s ease;
     margin-right: 15px;
-    align-items: center; /* Add this for perfect vertical centering */
-    justify-content: center; /* Add this for horizontal centering within container */
+    align-items: center;
+    justify-content: center;
 }
 
     /* Base styles for all letters in this design */
     .logo-container-5 span {
-        /* Core color for the letters */
         color: #ffffff; 
-        
-        /* Text stroke for a thin, defined edge */
         -webkit-text-stroke: 0.5px #00aaff; 
-        
-        /* The main glow effect */
         text-shadow: 
-            0 0 5px rgba(0, 170, 255, 0.8), /* Light blue inner glow */
-            0 0 10px rgba(0, 170, 255, 0.6), /* Wider blue glow */
-            0 0 15px rgba(255, 255, 255, 0.4); /* White/light center */
-
-        /* Slight static transform */
+            0 0 5px rgba(0, 170, 255, 0.8),
+            0 0 10px rgba(0, 170, 255, 0.6),
+            0 0 15px rgba(255, 255, 255, 0.4);
         transform: skewX(-4deg);
-        filter: drop-shadow(0 0 3px rgba(0, 170, 255, 0.5)); /* Extra blur for a true glow */
+        filter: drop-shadow(0 0 3px rgba(0, 170, 255, 0.5));
     }
 
     /* --- Styles for the 'S' letter (Design 5) --- */
@@ -1005,11 +1004,7 @@ useEffect(() => {
         left: 0;
         right: 0;
         bottom: 0;
-        
-        /* The 'A' upper segment color is grey/silver */
         color: rgba(251, 251, 251, 0.6); 
-        
-        /* Cut off the grey color at 45% */
         background: linear-gradient(
             to bottom,
             #aaaaaa 0%, 
@@ -1019,34 +1014,30 @@ useEffect(() => {
         );
         -webkit-background-clip: text;
         background-clip: text;
-        
-        /* Match static effects */
         transform: skewX(-4deg);
-        z-index: 3; /* Over the original 'A' */
-        
-        /* Soft grey glow/shadow for the upper part */
+        z-index: 3;
         text-shadow: 
             0 0 3px rgba(170, 170, 170, 0.5),
             0 0 6px rgba(170, 170, 170, 0.3);
         filter: drop-shadow(0 0 2px rgba(170, 170, 170, 0.3));
     }
 
-    /* MAXIMIZED Desktop logo size - Fills navbar height */
+    /* Desktop logo size */
     .logo-container-5 {
-        font-size: 45px; /* Increased from 28px to 38px */
+        font-size: 45px;
     }
 
-    /* MAXIMIZED Tablet logo size */
+    /* Tablet logo size */
     @media (max-width: 1024px) and (min-width: 769px) {
         .logo-container-5 {
-            font-size: 45px; /* Increased from 26px to 36px */
+            font-size: 45px;
         }
     }
 
-    /* MAXIMIZED Mobile logo size */
+    /* Mobile logo size */
     @media (max-width: 768px) {
         .logo-container-5 {
-            font-size: 50px; /* Increased from 24px to 34px */
+            font-size: 34px;
             padding-bottom: 0;
             padding-top: 0;
         }
@@ -1060,18 +1051,18 @@ useEffect(() => {
         }
     }
 
-    /* MAXIMIZED Small Mobile logo size */
+    /* Small Mobile logo size */
     @media (max-width: 480px) {
         .logo-container-5 {
-            font-size: 32px; /* Increased from 22px to 32px */
+            font-size: 30px;
             margin-right: 10px;
         }
     }
 
-    /* MAXIMIZED Extra Small Mobile logo size */
+    /* Extra Small Mobile logo size */
     @media (max-width: 360px) {
         .logo-container-5 {
-            font-size: 40px; /* Increased from 20px to 30px */
+            font-size: 28px;
             margin-right: 8px;
         }
     }
