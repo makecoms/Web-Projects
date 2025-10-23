@@ -71,15 +71,15 @@ const HomePage = () => {
         setCurrentSlide(index);
     };
 
-    // Enhanced touch handler for navbar buttons
+    // Click-only handlers for navbar buttons
     const handleNavButtonTouchStart = (e) => {
         if (isTouchDevice) {
             const button = e.currentTarget;
             button.style.transform = 'scale(0.95)';
-            button.style.backgroundColor = 'rgba(14, 124, 41, 1)';
+            button.style.backgroundColor = 'rgba(52, 152, 219, 1)'; // Blue color during click
             button.style.color = 'white';
-            button.style.borderColor = 'rgba(14, 124, 41, 1)';
-            button.style.boxShadow = '0 4px 12px rgba(14, 124, 41, 0.4)';
+            button.style.borderColor = 'rgba(52, 152, 219, 1)';
+            button.style.boxShadow = '0 4px 12px rgba(52, 152, 219, 0.4)';
         }
     };
 
@@ -88,20 +88,22 @@ const HomePage = () => {
             const button = e.currentTarget;
             setTimeout(() => {
                 button.style.transform = 'scale(1)';
-                button.style.backgroundColor = '';
-                button.style.color = 'rgba(0, 0, 0, 1)';
-                button.style.borderColor = 'rgba(74, 72, 72, 1)';
+                button.style.backgroundColor = 'rgba(255, 255, 255, 1)'; // White background
+                button.style.color = 'rgba(0, 0, 0, 1)'; // Black text
+                button.style.borderColor = 'rgba(74, 72, 72, 1)'; // Gray border
                 button.style.boxShadow = '';
             }, 150);
         }
     };
 
-    // Enhanced mouse handlers for navbar buttons
     const handleNavButtonMouseDown = (e) => {
         if (!isTouchDevice) {
             const button = e.currentTarget;
             button.style.transform = 'scale(0.95)';
-            button.style.boxShadow = '0 2px 8px rgba(0, 0, 0, 0.2)';
+            button.style.backgroundColor = 'rgba(52, 152, 219, 1)'; // Blue color during click
+            button.style.color = 'white';
+            button.style.borderColor = 'rgba(52, 152, 219, 1)';
+            button.style.boxShadow = '0 2px 8px rgba(52, 152, 219, 0.3)';
         }
     };
 
@@ -109,33 +111,30 @@ const HomePage = () => {
         if (!isTouchDevice) {
             const button = e.currentTarget;
             button.style.transform = 'scale(1)';
+            button.style.backgroundColor = 'rgba(255, 255, 255, 1)'; // White background
+            button.style.color = 'rgba(0, 0, 0, 1)'; // Black text
+            button.style.borderColor = 'rgba(74, 72, 72, 1)'; // Gray border
             button.style.boxShadow = '';
         }
     };
 
+    // Remove hover effects - only keep click effects
     const handleNavButtonMouseEnter = (e) => {
+        // No hover effect - only scale transform
         if (!isTouchDevice) {
             const button = e.currentTarget;
-            button.style.backgroundColor = 'rgba(14, 124, 41, 1)';
-            button.style.color = 'white';
-            button.style.borderColor = 'rgba(14, 124, 41, 1)';
-            button.style.transform = 'translateY(-2px)';
-            button.style.boxShadow = '0 6px 20px rgba(14, 124, 41, 0.3)';
+            button.style.transform = 'translateY(-1px)';
         }
     };
 
     const handleNavButtonMouseLeave = (e) => {
         if (!isTouchDevice) {
             const button = e.currentTarget;
-            button.style.backgroundColor = '';
-            button.style.color = 'rgba(0, 0, 0, 1)';
-            button.style.borderColor = 'rgba(74, 72, 72, 1)';
             button.style.transform = 'translateY(0)';
-            button.style.boxShadow = '';
         }
     };
 
-    // Enhanced handlers for CTA buttons
+    // Enhanced handlers for CTA buttons (keep existing)
     const handleCtaButtonTouchStart = (e) => {
         if (isTouchDevice) {
             const button = e.currentTarget;
@@ -188,19 +187,16 @@ const HomePage = () => {
 
     return (
         <div className="min-vh-100" style={{ backgroundColor: "#dce4ebff" }}>
-            {/* Header/Navbar - Reduced height, with logo and buttons */}
+            {/* Header/Navbar - Different color than buttons */}
             <nav className="fixed-top w-100" style={{ 
                 zIndex: 1050, 
-                backgroundColor: "#f0f7f2ff", 
+                backgroundColor: "#79b92cff", // Dark blue-gray navbar
                 minHeight: "50px",
-                borderBottom: "2px solid rgba(249, 0, 0, 0.6)", 
-                borderRadius: "0 0 5px 5px",
-                marginTop: "3px",
-                marginBottom: "2px"
+                borderBottom: "2px solid rgba(255, 255, 255, 0.6)" // Blue accent border
             }}>
                 <div className="container h-100">
                     <div className="d-flex justify-content-between align-items-center h-100 py-1">
-                        {/* Buttons - aligned to left - DECREASED SIZE */}
+                        {/* Buttons - White with black text, blue click effect */}
                         <div className="d-flex gap-1 gap-md-2">
                             <button
                                 className="btn btn-outline-light border-2 text-decoration-none px-2 py-1"
@@ -219,7 +215,8 @@ const HomePage = () => {
                                     transition: 'all 0.15s ease',
                                     borderRadius: '8px',
                                     minHeight: '32px',
-                                    cursor: 'pointer'
+                                    cursor: 'pointer',
+                                    backgroundColor: 'rgba(241, 238, 238, 1)' // White buttons
                                 }}
                             >
                                 Home
@@ -241,7 +238,8 @@ const HomePage = () => {
                                     transition: 'all 0.15s ease',
                                     borderRadius: '8px',
                                     minHeight: '32px',
-                                    cursor: 'pointer'
+                                    cursor: 'pointer',
+                                    backgroundColor: 'rgba(255, 255, 255, 1)' // White buttons
                                 }}
                             >
                                 Services
@@ -264,7 +262,8 @@ const HomePage = () => {
                                     transition: 'all 0.15s ease',
                                     borderRadius: '8px',
                                     minHeight: '32px',
-                                    cursor: 'pointer'
+                                    cursor: 'pointer',
+                                    backgroundColor: 'rgba(255, 255, 255, 1)' // White buttons
                                 }}
                             >
                                 Contact
@@ -678,15 +677,6 @@ const HomePage = () => {
         .hero-top-content {
             margin-bottom: 2.5rem;
         }
-
-        /* Enhanced button effects for tablet */
-        nav .btn:active {
-            transform: scale(0.95) !important;
-            background-color: rgba(14, 124, 41, 1) !important;
-            color: white !important;
-            border-color: rgba(14, 124, 41, 1) !important;
-            transition: all 0.1s ease !important;
-        }
     }
 
     /* Mobile Media Query - Keep existing behavior */
@@ -734,15 +724,6 @@ const HomePage = () => {
         .btn {
             min-height: 32px; /* Reduced from 44px */
             padding: 8px 12px !important; /* Reduced padding */
-        }
-
-        /* Enhanced mobile button effects */
-        nav .btn:active {
-            transform: scale(0.95) !important;
-            background-color: rgba(14, 124, 41, 1) !important;
-            color: white !important;
-            border-color: rgba(14, 124, 41, 1) !important;
-            transition: all 0.1s ease !important;
         }
     }
 
@@ -966,16 +947,6 @@ const HomePage = () => {
             align-items: center;
             justify-content: center;
         }
-
-        /* Enhanced mobile/tablet button click effects */
-        nav .btn:active {
-            transform: scale(0.95);
-            background-color: rgba(14, 124, 41, 1) !important;
-            color: white !important;
-            border-color: rgba(14, 124, 41, 1) !important;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3) !important;
-            transition: all 0.1s ease !important;
-        }
     }
 
     /* NEW NEON GLOW LOGO STYLES - MAXIMIZED SIZE */
@@ -1118,31 +1089,6 @@ const HomePage = () => {
                 0 0 20px rgba(255, 255, 255, 0.6);
             filter: drop-shadow(0 0 5px rgba(0, 170, 255, 0.7));
         }
-    }
-
-    /* Enhanced button effects for all devices */
-    .btn {
-        position: relative;
-        overflow: hidden;
-    }
-
-    /* Ripple effect for buttons */
-    .btn::after {
-        content: '';
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        width: 0;
-        height: 0;
-        border-radius: 50%;
-        background: rgba(255, 255, 255, 0.3);
-        transform: translate(-50%, -50%);
-        transition: width 0.3s, height 0.3s;
-    }
-
-    .btn:active::after {
-        width: 100px;
-        height: 100px;
     }
             `}</style>
         </div>
