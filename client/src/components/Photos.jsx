@@ -1,50 +1,32 @@
 import { useState, useEffect } from "react";
+import heroBackground from "/images/logob.webp";
 
-const PhotosPage = () => {
+const HomePage = () => {
+    const [currentSlide, setCurrentSlide] = useState(0);
     const [isTouchDevice, setIsTouchDevice] = useState(false);
 
-    // Sample photos data - each image in its own category
-    const photos = [
+    const services = [
         {
-            id: 1,
-            src: "/images/Visitingcard.webp",
-            alt: "Business Visiting Card",
-            category: "Business Card 1"
+            title: "Dealers For Various Reputed Brands Of Pumpsets",
+            description: "As an authorized distributor, the company offers a comprehensive selection of pumpsets from multiple, well-regarded manufacturers for diverse applications.",
+            image: "/images/Pumpsets.webp"
         },
         {
-            id: 2,
-            src: "/images/visitingcard1.webp",
-            alt: "Company Visiting Card",
-            category: "Business Card 2"
+            title: "Dealers For Reputed Brands Of Solar Pumps",
+            description: "As an authorized dealer, the company supplies and services solar pumps from a curated selection of highly-regarded manufacturers for reliable and sustainable water solutions.",
+            image: "/images/solar pump.webp"
         },
         {
-            id: 3,
-            src: "/images/Pumpsets.webp",
-            alt: "Agricultural Pump Sets",
-            category: "Pump Sets"
-        },
-        {
-            id: 4,
-            src: "/images/service-controller.webp",
-            alt: "Irrigation Control Systems",
-            category: "Control Systems"
-        },
-        {
-            id: 5,
-            src: "/images/solar pump.webp",
-            alt: "Solar Powered Pumps",
-            category: "Solar Solutions"
+            title: "Irrigation Related Tech Projects",
+            description: "Smart irrigation control systems that optimize water usage and maximize crop yield with precision technology.",
+            image: "/images/service-controller.webp"
         }
     ];
-
-    // Create categories from the photos data + "All" category
-    const categories = ["All", ...photos.map(photo => photo.category)];
-    const [selectedCategory, setSelectedCategory] = useState("All");
-    const [selectedImage, setSelectedImage] = useState(null);
 
     // Check if touch device on component mount and resize
     useEffect(() => {
         const checkTouchDevice = () => {
+            // Check for touch support or if screen width is tablet/mobile (1024px and below)
             const isTouch = 'ontouchstart' in window || 
                            navigator.maxTouchPoints > 0 || 
                            navigator.msMaxTouchPoints > 0 ||
@@ -58,8 +40,18 @@ const PhotosPage = () => {
         return () => window.removeEventListener('resize', checkTouchDevice);
     }, []);
 
-    const scrollToHome = () => {
-        window.location.href = '/';
+   // Auto-slide functionality
+useEffect(() => {
+    const interval = setInterval(() => {
+        setCurrentSlide((prev) => (prev + 1) % services.length);
+    }, 2000); 
+
+    return () => clearInterval(interval);
+}, [services.length]);
+
+    const scrollToServices = () => {
+        const servicesSection = document.getElementById("services");
+        servicesSection?.scrollIntoView({ behavior: "smooth" });
     };
 
     const scrollToContact = () => {
@@ -67,16 +59,24 @@ const PhotosPage = () => {
         footer?.scrollIntoView({ behavior: "smooth" });
     };
 
-    const filteredPhotos = selectedCategory === "All" 
-        ? photos 
-        : photos.filter(photo => photo.category === selectedCategory);
+    const nextSlide = () => {
+        setCurrentSlide((prev) => (prev + 1) % services.length);
+    };
+
+    const prevSlide = () => {
+        setCurrentSlide((prev) => (prev - 1 + services.length) % services.length);
+    };
+
+    const goToSlide = (index) => {
+        setCurrentSlide(index);
+    };
 
     // Click-only handlers for navbar buttons
     const handleNavButtonTouchStart = (e) => {
         if (isTouchDevice) {
             const button = e.currentTarget;
             button.style.transform = 'scale(0.95)';
-            button.style.backgroundColor = 'rgba(52, 152, 219, 1)';
+            button.style.backgroundColor = 'rgba(52, 152, 219, 1)'; // Blue color during click
             button.style.color = 'white';
             button.style.borderColor = 'rgba(52, 152, 219, 1)';
             button.style.boxShadow = '0 4px 12px rgba(52, 152, 219, 0.4)';
@@ -88,9 +88,9 @@ const PhotosPage = () => {
             const button = e.currentTarget;
             setTimeout(() => {
                 button.style.transform = 'scale(1)';
-                button.style.backgroundColor = 'rgba(255, 255, 255, 1)';
-                button.style.color = 'rgba(0, 0, 0, 1)';
-                button.style.borderColor = 'rgba(74, 72, 72, 1)';
+                button.style.backgroundColor = 'rgba(255, 255, 255, 1)'; // White background
+                button.style.color = 'rgba(0, 0, 0, 1)'; // Black text
+                button.style.borderColor = 'rgba(74, 72, 72, 1)'; // Gray border
                 button.style.boxShadow = '';
             }, 150);
         }
@@ -100,7 +100,7 @@ const PhotosPage = () => {
         if (!isTouchDevice) {
             const button = e.currentTarget;
             button.style.transform = 'scale(0.95)';
-            button.style.backgroundColor = 'rgba(52, 152, 219, 1)';
+            button.style.backgroundColor = 'rgba(52, 152, 219, 1)'; // Blue color during click
             button.style.color = 'white';
             button.style.borderColor = 'rgba(52, 152, 219, 1)';
             button.style.boxShadow = '0 2px 8px rgba(52, 152, 219, 0.3)';
@@ -111,14 +111,16 @@ const PhotosPage = () => {
         if (!isTouchDevice) {
             const button = e.currentTarget;
             button.style.transform = 'scale(1)';
-            button.style.backgroundColor = 'rgba(255, 255, 255, 1)';
-            button.style.color = 'rgba(0, 0, 0, 1)';
-            button.style.borderColor = 'rgba(74, 72, 72, 1)';
+            button.style.backgroundColor = 'rgba(255, 255, 255, 1)'; // White background
+            button.style.color = 'rgba(0, 0, 0, 1)'; // Black text
+            button.style.borderColor = 'rgba(74, 72, 72, 1)'; // Gray border
             button.style.boxShadow = '';
         }
     };
 
+    // Remove hover effects - only keep click effects
     const handleNavButtonMouseEnter = (e) => {
+        // No hover effect - only scale transform
         if (!isTouchDevice) {
             const button = e.currentTarget;
             button.style.transform = 'translateY(-1px)';
@@ -132,50 +134,60 @@ const PhotosPage = () => {
         }
     };
 
-    const handleCategoryButtonClick = (category) => {
-        setSelectedCategory(category);
-    };
-
-    const openModal = (photo) => {
-        setSelectedImage(photo);
-    };
-
-    const closeModal = () => {
-        setSelectedImage(null);
-    };
-
-    const navigateImage = (direction) => {
-        if (!selectedImage) return;
-        
-        const currentIndex = filteredPhotos.findIndex(photo => photo.id === selectedImage.id);
-        let newIndex;
-        
-        if (direction === 'next') {
-            newIndex = (currentIndex + 1) % filteredPhotos.length;
-        } else {
-            newIndex = (currentIndex - 1 + filteredPhotos.length) % filteredPhotos.length;
+    // Enhanced handlers for CTA buttons (keep existing)
+    const handleCtaButtonTouchStart = (e) => {
+        if (isTouchDevice) {
+            const button = e.currentTarget;
+            button.style.transform = 'translateY(-2px) scale(0.98)';
+            button.style.boxShadow = '0 15px 35px rgba(39, 174, 96, 0.8)';
         }
-        
-        setSelectedImage(filteredPhotos[newIndex]);
     };
 
-    // Handle keyboard navigation
-    useEffect(() => {
-        const handleKeyDown = (e) => {
-            if (selectedImage) {
-                if (e.key === 'Escape') closeModal();
-                if (e.key === 'ArrowRight') navigateImage('next');
-                if (e.key === 'ArrowLeft') navigateImage('prev');
-            }
-        };
+    const handleCtaButtonTouchEnd = (e) => {
+        if (isTouchDevice) {
+            const button = e.currentTarget;
+            setTimeout(() => {
+                button.style.transform = 'translateY(0) scale(1)';
+                button.style.boxShadow = '0 8px 25px rgba(39, 174, 96, 0.4)';
+            }, 150);
+        }
+    };
 
-        window.addEventListener('keydown', handleKeyDown);
-        return () => window.removeEventListener('keydown', handleKeyDown);
-    }, [selectedImage]);
+    const handleCtaButtonMouseEnter = (e) => {
+        if (!isTouchDevice) {
+            const button = e.currentTarget;
+            button.style.transform = 'translateY(-3px)';
+            button.style.boxShadow = '0 15px 35px rgba(39, 174, 96, 0.6)';
+        }
+    };
+
+    const handleCtaButtonMouseLeave = (e) => {
+        if (!isTouchDevice) {
+            const button = e.currentTarget;
+            button.style.transform = 'translateY(0)';
+            button.style.boxShadow = '0 8px 25px rgba(39, 174, 96, 0.4)';
+        }
+    };
+
+    const handleCtaButtonMouseDown = (e) => {
+        if (!isTouchDevice) {
+            const button = e.currentTarget;
+            button.style.transform = 'translateY(-1px) scale(0.98)';
+            button.style.boxShadow = '0 5px 15px rgba(39, 174, 96, 0.8)';
+        }
+    };
+
+    const handleCtaButtonMouseUp = (e) => {
+        if (!isTouchDevice) {
+            const button = e.currentTarget;
+            button.style.transform = 'translateY(-3px) scale(1)';
+            button.style.boxShadow = '0 15px 35px rgba(39, 174, 96, 0.6)';
+        }
+    };
 
     return (
         <div className="min-vh-100" style={{ backgroundColor: "#dce4ebff" }}>
-            {/* Header/Navbar - Updated with only Home and Contact buttons */}
+            {/* Header/Navbar - Different color than buttons */}
             <nav className="fixed-top w-100" style={{ 
                 zIndex: 1050, 
                 backgroundColor: "#79b92cff",
@@ -184,11 +196,11 @@ const PhotosPage = () => {
             }}>
                 <div className="container h-100">
                     <div className="d-flex justify-content-between align-items-center h-100 py-1">
-                        {/* Buttons - Only Home and Contact */}
+                        {/* Buttons - White with black text, blue click effect */}
                         <div className="d-flex gap-2 gap-md-3">
                             <button
                                 className="btn btn-outline-light border-2 text-decoration-none nav-button"
-                                onClick={scrollToHome}
+                                onClick={() => window.location.href = '/Photos'}
                                 onTouchStart={handleNavButtonTouchStart}
                                 onTouchEnd={handleNavButtonTouchEnd}
                                 onMouseDown={handleNavButtonMouseDown}
@@ -206,11 +218,33 @@ const PhotosPage = () => {
                                     backgroundColor: 'rgba(241, 238, 238, 1)'
                                 }}
                             >
-                                Home
+                                Photos
                             </button>
-                            {/* Contact button - visible on all devices now */}
                             <button
                                 className="btn btn-outline-light border-2 text-decoration-none nav-button"
+                                onClick={scrollToServices}
+                                onTouchStart={handleNavButtonTouchStart}
+                                onTouchEnd={handleNavButtonTouchEnd}
+                                onMouseDown={handleNavButtonMouseDown}
+                                onMouseUp={handleNavButtonMouseUp}
+                                onMouseEnter={handleNavButtonMouseEnter}
+                                onMouseLeave={handleNavButtonMouseLeave}
+                                style={{
+                                    marginTop: '5px',
+                                    color: "rgba(0, 0, 0, 1)",
+                                    borderColor: "rgba(74, 72, 72, 1)",
+                                    fontWeight: '600',
+                                    transition: 'all 0.15s ease',
+                                    borderRadius: '8px',
+                                    cursor: 'pointer',
+                                    backgroundColor: 'rgba(255, 255, 255, 1)'
+                                }}
+                            >
+                                Services
+                            </button>
+                            {/* Contact button - hidden on mobile, visible on tablet and desktop */}
+                            <button
+                                className="btn btn-outline-light border-2 text-decoration-none nav-button d-none d-md-block"
                                 onClick={scrollToContact}
                                 onTouchStart={handleNavButtonTouchStart}
                                 onTouchEnd={handleNavButtonTouchEnd}
@@ -233,166 +267,253 @@ const PhotosPage = () => {
                             </button>
                         </div>
 
-                        {/* Pump House Text - Replaced SA Logo */}
-                        <div className="pump-house-text" style={{ marginRight: '15px' }}>
-                            Pump House
+                        {/* SA Logo - aligned to right - MAXIMIZED SIZE */}
+                        <div className="logo-container-5" style={{ marginRight: '15px' }}>
+                            <span className="logo-s-5">S</span>
+                            <span className="logo-a-5">A</span>
                         </div>
                     </div>
                 </div>
             </nav>
 
-            {/* Photos Gallery Section */}
-            <section className="py-5" style={{ marginTop: '60px', minHeight: '80vh' }}>
-                <div className="container">
-                    <div className="row justify-content-center">
-                        <div className="col-12">
-                            <h1 className="text-center mb-4 fw-bold text-primary" style={{ fontSize: 'clamp(2rem, 6vw, 3.5rem)' }}>
-                                Our Gallery
-                            </h1>
-                            <p className="text-center mb-5 text-muted fs-5">
-                                Explore our work in agricultural automation and irrigation solutions
-                            </p>
+            {/* Hero Section */}
+            <section
+                className="position-relative d-flex align-items-center justify-content-center overflow-hidden hero-section"
+                style={{
+                    backgroundImage: `linear-gradient(rgba(25, 58, 35, 0.7), rgba(244, 184, 115, 0.5)), url(${heroBackground})`,
+                }}
+            >
+                <div className="position-relative text-center text-white w-100 h-100 d-flex flex-column justify-content-center" style={{ zIndex: 10 }}>
+                    {/* Main Hero Content */}
+                    <div className="hero-main-content">
+                        {/* Top Section - "Shrinidhii Automations" */}
+                        <div className="hero-top-content mb-4 mb-md-5">
+                            <div className="container px-4">
+                                <div className="row justify-content-center">
+                                    <div className="col-12 col-lg-10">
+                                        <h1 className="hero-title">
+                                            Shrinidhii <br /> Automations
+                                        </h1>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
 
-                            {/* Category Filter */}
-                            <div className="row justify-content-center mb-5">
-                                <div className="col-12">
-                                    <div className="d-flex flex-wrap justify-content-center gap-2">
-                                        {categories.map((category) => (
+                        {/* Bottom Section - Subtitle and Button */}
+                        <div className="hero-bottom-content">
+                            <div className="container px-4">
+                                <div className="row justify-content-center">
+                                    <div className="col-12 col-lg-10">
+                                        <p className="hero-subtitle">
+                                            Advanced Electrical Solutions for Modern Irrigation Systems
+                                        </p>
+
+                                        <div className="d-flex flex-column flex-md-row gap-3 justify-content-center align-items-center">
                                             <button
-                                                key={category}
-                                                className={`btn ${selectedCategory === category ? 'btn-primary' : 'btn-outline-primary'} px-3 py-2`}
-                                                onClick={() => handleCategoryButtonClick(category)}
+                                                className="btn btn-lg px-5 py-3 rounded-pill fw-bold"
+                                                onClick={scrollToContact}
+                                                onTouchStart={handleCtaButtonTouchStart}
+                                                onTouchEnd={handleCtaButtonTouchEnd}
+                                                onMouseDown={handleCtaButtonMouseDown}
+                                                onMouseUp={handleCtaButtonMouseUp}
+                                                onMouseEnter={handleCtaButtonMouseEnter}
+                                                onMouseLeave={handleCtaButtonMouseLeave}
                                                 style={{
-                                                    transition: 'all 0.3s ease',
-                                                    borderRadius: '20px',
-                                                    fontWeight: '600'
+                                                    fontSize: '1.1rem',
+                                                    background: 'linear-gradient(135deg, #27ae60 0%, #2ecc71 100%)',
+                                                    border: 'none',
+                                                    boxShadow: '0 8px 25px rgba(39, 174, 96, 0.4)',
+                                                    color: 'white',
+                                                    transition: 'all 0.2s ease',
+                                                    cursor: 'pointer'
                                                 }}
                                             >
-                                                {category}
+                                                Contact Us
                                             </button>
-                                        ))}
-                                    </div>
-                                </div>
-                            </div>
-
-                            {/* Photos Grid */}
-                            <div className="row g-4">
-                                {filteredPhotos.map((photo) => (
-                                    <div key={photo.id} className="col-12 col-sm-6 col-lg-4">
-                                        <div 
-                                            className="card h-100 border-0 shadow-sm photo-card"
-                                            style={{ 
-                                                cursor: 'pointer',
-                                                transition: 'transform 0.3s ease, box-shadow 0.3s ease',
-                                                overflow: 'hidden'
-                                            }}
-                                            onClick={() => openModal(photo)}
-                                            onMouseEnter={(e) => {
-                                                if (!isTouchDevice) {
-                                                    e.currentTarget.style.transform = 'translateY(-5px)';
-                                                    e.currentTarget.style.boxShadow = '0 10px 30px rgba(0,0,0,0.2)';
-                                                }
-                                            }}
-                                            onMouseLeave={(e) => {
-                                                if (!isTouchDevice) {
-                                                    e.currentTarget.style.transform = 'translateY(0)';
-                                                    e.currentTarget.style.boxShadow = '0 4px 15px rgba(0,0,0,0.1)';
-                                                }
-                                            }}
-                                        >
-                                            <div className="position-relative overflow-hidden" style={{ height: '250px' }}>
-                                                <img
-                                                    src={photo.src}
-                                                    alt={photo.alt}
-                                                    className="img-fluid w-100 h-100"
-                                                    style={{ 
-                                                        objectFit: 'cover',
-                                                        transition: 'transform 0.3s ease'
-                                                    }}
-                                                    onLoad={(e) => {
-                                                        e.target.style.transform = 'scale(1)';
-                                                    }}
-                                                />
-                                                <div className="position-absolute top-0 start-0 m-3">
-                                                    <span className="badge bg-primary bg-opacity-90 text-white">
-                                                        {photo.category}
-                                                    </span>
-                                                </div>
-                                            </div>
-                                            <div className="card-body">
-                                                <h5 className="card-title fw-bold text-dark">{photo.alt}</h5>
-                                                <p className="card-text text-muted small">
-                                                    {selectedCategory === "All" 
-                                                        ? `Click to view this ${photo.category.toLowerCase()} image.`
-                                                        : "Click to view larger image and details."}
-                                                </p>
-                                            </div>
                                         </div>
                                     </div>
-                                ))}
-                            </div>
-
-                            {/* No Photos Message */}
-                            {filteredPhotos.length === 0 && (
-                                <div className="text-center py-5">
-                                    <h4 className="text-muted">No photos found in this category</h4>
-                                    <p className="text-muted">Please select a different category</p>
                                 </div>
-                            )}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                {/* Scroll Indicator - Hidden on Mobile */}
+                <div className="position-absolute bottom-0 start-50 translate-middle-x scroll-indicator-wrapper d-none d-md-block">
+                    <div className="scroll-indicator">
+                        <div className="scroll-arrow"></div>
+                    </div>
+                </div>
+            </section>
+
+            {/* Services Section - Auto Sliding Carousel */}
+            <section id="services" className="py-5 bg-light">
+                <div className="container h-100">
+                    <div className="row justify-content-center">
+                        <div className="col-12 col-lg-10">
+                            <h2 className="text-center mb-5 fw-bold text-primary" style={{ fontSize: 'clamp(1.75rem, 6vw, 3rem)' }}>
+                                Highlights
+                            </h2>
+
+                            {/* Auto Sliding Carousel */}
+                            <div className="carousel-container position-relative">
+                                <div
+                                    className="carousel-slides d-flex transition-all"
+                                    style={{ transform: `translateX(-${currentSlide * 100}%)` }}
+                                >
+                                    {services.map((service, index) => (
+                                        <div key={index} className="carousel-slide flex-shrink-0 w-100">
+                                            <div className="card border-0 shadow-sm h-100">
+                                                <div className="row g-0 h-100">
+                                                    <div className="col-md-6">
+                                                        <img
+                                                            src={service.image}
+                                                            alt={service.title}
+                                                            className="img-fluid w-100 h-100"
+                                                            style={{ objectFit: 'cover', minHeight: '400px' }}
+                                                        />
+                                                    </div>
+                                                    <div className="col-md-6 d-flex align-items-center">
+                                                        <div className="p-4 p-lg-5">
+                                                            <h3 className="h2 fw-bold text-dark mb-4">{service.title}</h3>
+                                                            <p className="text-muted mb-4 fs-5">{service.description}</p>
+                                                            <button
+                                                                className="btn btn-primary btn-lg px-4"
+                                                                onClick={scrollToContact}
+                                                                onTouchStart={(e) => {
+                                                                    if (isTouchDevice) {
+                                                                        e.target.style.transform = 'translateY(-2px) scale(0.98)';
+                                                                    }
+                                                                }}
+                                                                onTouchEnd={(e) => {
+                                                                    if (isTouchDevice) {
+                                                                        e.target.style.transform = 'translateY(0) scale(1)';
+                                                                    }
+                                                                }}
+                                                                onMouseDown={(e) => {
+                                                                    if (!isTouchDevice) {
+                                                                        e.target.style.transform = 'translateY(-1px) scale(0.98)';
+                                                                    }
+                                                                }}
+                                                                onMouseUp={(e) => {
+                                                                    if (!isTouchDevice) {
+                                                                        e.target.style.transform = 'translateY(-2px) scale(1)';
+                                                                    }
+                                                                }}
+                                                                onMouseEnter={(e) => {
+                                                                    if (!isTouchDevice) {
+                                                                        e.target.style.transform = 'translateY(-2px)';
+                                                                    }
+                                                                }}
+                                                                onMouseLeave={(e) => {
+                                                                    if (!isTouchDevice) {
+                                                                        e.target.style.transform = 'translateY(0)';
+                                                                    }
+                                                                }}
+                                                                style={{
+                                                                    transition: 'all 0.2s ease',
+                                                                    cursor: 'pointer'
+                                                                }}
+                                                            >
+                                                                Learn More
+                                                            </button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    ))}
+                                </div>
+
+                                {/* Navigation Arrows */}
+                                <button
+                                    className="carousel-arrow carousel-arrow-prev position-absolute top-50 start-0 translate-middle-y"
+                                    onClick={prevSlide}
+                                    onTouchStart={(e) => {
+                                        if (isTouchDevice) {
+                                            e.target.style.transform = 'translateY(-50%) scale(0.9)';
+                                            e.target.style.backgroundColor = 'rgba(26, 82, 118, 1)';
+                                        }
+                                    }}
+                                    onTouchEnd={(e) => {
+                                        if (isTouchDevice) {
+                                            e.target.style.transform = 'translateY(-50%) scale(1)';
+                                            e.target.style.backgroundColor = 'rgba(26, 82, 118, 0.8)';
+                                        }
+                                    }}
+                                    onMouseEnter={(e) => {
+                                        if (!isTouchDevice) {
+                                            e.target.style.transform = 'translateY(-50%) scale(1.1)';
+                                            e.target.style.backgroundColor = '#1a5276';
+                                        }
+                                    }}
+                                    onMouseLeave={(e) => {
+                                        if (!isTouchDevice) {
+                                            e.target.style.transform = 'translateY(-50%) scale(1)';
+                                            e.target.style.backgroundColor = 'rgba(26, 82, 118, 0.8)';
+                                        }
+                                    }}
+                                >
+                                    ‹
+                                </button>
+                                <button
+                                    className="carousel-arrow carousel-arrow-next position-absolute top-50 end-0 translate-middle-y"
+                                    onClick={nextSlide}
+                                    onTouchStart={(e) => {
+                                        if (isTouchDevice) {
+                                            e.target.style.transform = 'translateY(-50%) scale(0.9)';
+                                            e.target.style.backgroundColor = 'rgba(26, 82, 118, 1)';
+                                        }
+                                    }}
+                                    onTouchEnd={(e) => {
+                                        if (isTouchDevice) {
+                                            e.target.style.transform = 'translateY(-50%) scale(1)';
+                                            e.target.style.backgroundColor = 'rgba(26, 82, 118, 0.8)';
+                                        }
+                                    }}
+                                    onMouseEnter={(e) => {
+                                        if (!isTouchDevice) {
+                                            e.target.style.transform = 'translateY(-50%) scale(1.1)';
+                                            e.target.style.backgroundColor = '#1a5276';
+                                        }
+                                    }}
+                                    onMouseLeave={(e) => {
+                                        if (!isTouchDevice) {
+                                            e.target.style.transform = 'translateY(-50%) scale(1)';
+                                            e.target.style.backgroundColor = 'rgba(26, 82, 118, 0.8)';
+                                        }
+                                    }}
+                                >
+                                    ›
+                                </button>
+
+                                {/* Indicators */}
+                                <div className="carousel-indicators position-absolute start-50 translate-middle-x">
+                                    {services.map((_, index) => (
+                                        <button
+                                            key={index}
+                                            className={`carousel-indicator ${index === currentSlide ? 'active' : ''}`}
+                                            onClick={() => goToSlide(index)}
+                                            onTouchStart={(e) => {
+                                                if (isTouchDevice) {
+                                                    e.target.style.transform = 'scale(1.3)';
+                                                }
+                                            }}
+                                            onTouchEnd={(e) => {
+                                                if (isTouchDevice) {
+                                                    e.target.style.transform = 'scale(1.2)';
+                                                }
+                                            }}
+                                        />
+                                    ))}
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
             </section>
 
-            {/* Image Modal */}
-            {selectedImage && (
-                <div 
-                    className="modal fade show d-block"
-                    style={{ backgroundColor: 'rgba(0,0,0,0.9)', zIndex: 1060 }}
-                    onClick={closeModal}
-                >
-                    <div className="modal-dialog modal-dialog-centered modal-lg" onClick={(e) => e.stopPropagation()}>
-                        <div className="modal-content border-0 bg-transparent">
-                            <div className="modal-header border-0 pb-0">
-                                <button
-                                    type="button"
-                                    className="btn-close btn-close-white"
-                                    onClick={closeModal}
-                                    style={{ fontSize: '1.5rem' }}
-                                ></button>
-                            </div>
-                            <div className="modal-body text-center">
-                                <img
-                                    src={selectedImage.src}
-                                    alt={selectedImage.alt}
-                                    className="img-fluid rounded"
-                                    style={{ maxHeight: '70vh', objectFit: 'contain' }}
-                                />
-                                <div className="mt-3 text-white">
-                                    <h4 className="fw-bold">{selectedImage.alt}</h4>
-                                    <p className="mb-0">Category: {selectedImage.category}</p>
-                                </div>
-                            </div>
-                            <div className="modal-footer border-0 justify-content-center">
-                                <button
-                                    className="btn btn-outline-light mx-2"
-                                    onClick={() => navigateImage('prev')}
-                                >
-                                    ‹ Previous
-                                </button>
-                                <button
-                                    className="btn btn-outline-light mx-2"
-                                    onClick={() => navigateImage('next')}
-                                >
-                                    Next ›
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            )}
-
-            {/* Footer - Same as HomePage */}
+            {/* Footer */}
             <footer id="contact" className="bg-dark text-white">
                 <div className="container px-3 px-md-4 py-4 py-md-5">
                     <div className="row g-3 g-md-4 mb-4">
@@ -459,164 +580,510 @@ const PhotosPage = () => {
 
             {/* Custom CSS */}
             <style jsx>{`
-                /* Tablet and Desktop Navbar Button Styles */
-                @media (min-width: 769px) {
-                    .nav-button {
-                        font-size: 1rem !important;
-                        padding: 10px 20px !important;
-                        min-height: 40px !important;
-                        font-weight: 600 !important;
-                    }
-                    
-                    nav {
-                        min-height: 60px !important;
-                    }
+    .hero-section {
+        background-size: cover;
+        background-repeat: no-repeat;
+        background-position: center center;
+        background-attachment: fixed;
+        height: 100vh;
+        min-height: 600px;
+        position: relative;
+        margin-top: 60px; /* Adjusted to match navbar height */
+    }
 
-                    /* Adjust gap for desktop with only 2 buttons */
-                    nav .d-flex.gap-2 {
-                        gap: 1.5rem !important;
-                    }
-                }
+    /* Main hero content container */
+    .hero-main-content {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        flex: 1;
+    }
 
-                /* Mobile Media Query */
-                @media (max-width: 768px) {
-                    .nav-button {
-                        font-size: 0.8rem !important;
-                        padding: 8px 12px !important;
-                        min-height: 32px !important;
-                        font-weight: 600 !important;
-                    }
-                    
-                    nav {
-                        min-height: 50px !important;
-                    }
+    /* Hero content sections - using flexbox instead of absolute positioning */
+    .hero-top-content {
+        text-align: center;
+    }
 
-                    /* Adjust gap for mobile with only 2 buttons */
-                    nav .d-flex.gap-2 {
-                        gap: 0.8rem !important;
-                    }
-                }
+    .hero-bottom-content {
+        text-align: center;
+    }
 
-                /* Small Mobile Media Query */
-                @media (max-width: 480px) {
-                    .nav-button {
-                        padding: 6px 10px !important;
-                        font-size: 0.75rem !important;
-                        min-height: 30px !important;
-                    }
+    /* Hero Title Styles */
+    .hero-title {
+        font-size: clamp(2.5rem, 10vw, 5rem);
+        font-weight: 800;
+        line-height: 1.1;
+        text-shadow: 2px 2px 8px rgba(0,0,0,0.3);
+        margin-bottom: 0;
+    }
 
-                    nav .d-flex.gap-2 {
-                        gap: 0.5rem !important;
-                    }
-                }
+    /* Hero Subtitle Styles */
+    .hero-subtitle {
+        font-size: clamp(1.2rem, 4vw, 1.8rem);
+        font-weight: 300;
+        opacity: 0.95;
+        margin-bottom: 1.5rem;
+        line-height: 1.4;
+    }
 
-                /* Extra Small Mobile */
-                @media (max-width: 360px) {
-                    .nav-button {
-                        padding: 5px 8px !important;
-                        font-size: 0.7rem !important;
-                        min-height: 28px !important;
-                    }
+    /* DESKTOP VIEWS - Complete visibility of background image */
+    @media (min-width: 1024px) {
+        .hero-section {
+            background-size: contain;
+            background-position: center center;
+            background-color: #d1d1d1
+        }
+    }
 
-                    nav .d-flex.gap-2 {
-                        gap: 0.3rem !important;
-                    }
-                }
+    /* Large Desktop - Ensure full visibility */
+    @media (min-width: 1200px) {
+        .hero-section {
+            background-size: contain;
+            background-position: center top;
+        }
+    }
 
-                /* Photo Card Hover Effects */
-                .photo-card:hover img {
-                    transform: scale(1.05);
-                }
+    /* Extra large screens */
+    @media (min-width: 1440px) {
+        .hero-section {
+            background-size: contain;
+            background-position: center top;
+        }
+    }
 
-                /* PUMP HOUSE TEXT STYLES - Replaced SA Logo */
-                .pump-house-text {
-                    font-weight: 700;
-                    color: #ffffff;
-                    text-shadow: 
-                        0 0 5px rgba(0, 170, 255, 0.8),
-                        0 0 10px rgba(0, 170, 255, 0.6),
-                        0 0 15px rgba(255, 255, 255, 0.4);
-                    letter-spacing: -0.5px;
-                    font-family: 'Arial', 'Helvetica', sans-serif;
-                    cursor: pointer;
-                    transition: all 0.3s ease;
-                    margin-right: 15px;
-                    display: flex;
-                    align-items: center;
-                    justify-content: center;
-                    text-transform: uppercase;
-                }
+    /* Tablet and Desktop Navbar Button Styles */
+    @media (min-width: 769px) {
+        .nav-button {
+            font-size: 1rem !important;
+            padding: 10px 20px !important;
+            min-height: 40px !important;
+            font-weight: 600 !important;
+        }
+        
+        nav {
+            min-height: 60px !important;
+        }
+        
+        .hero-section {
+            margin-top: 60px !important;
+        }
+    }
 
-                /* Desktop Pump House text size */
-                .pump-house-text {
-                    font-size: 24px;
-                }
+    /* Tablet Media Query - Keep existing behavior */
+    @media (max-width: 1024px) and (min-width: 769px) {
+        .hero-section {
+            background-position: center 25%;
+            background-size: cover;
+            height: 90vh;
+            min-height: 500px;
+        }
 
-                /* Tablet Pump House text size */
-                @media (max-width: 1024px) and (min-width: 769px) {
-                    .pump-house-text {
-                        font-size: 22px;
-                    }
-                }
+        .hero-title {
+            font-size: clamp(2.2rem, 8vw, 4rem);
+        }
 
-                /* Mobile Pump House text size */
-                @media (max-width: 768px) {
-                    .pump-house-text {
-                        font-size: 18px;
-                        padding-bottom: 0;
-                        padding-top: 0;
-                    }
-                }
+        .hero-subtitle {
+            font-size: clamp(1.1rem, 3.5vw, 1.6rem);
+        }
 
-                /* Small Mobile Pump House text size */
-                @media (max-width: 480px) {
-                    .pump-house-text {
-                        font-size: 16px;
-                        margin-right: 10px;
-                    }
-                }
+        .hero-top-content {
+            margin-bottom: 2.5rem;
+        }
+    }
 
-                /* Extra Small Mobile Pump House text size */
-                @media (max-width: 360px) {
-                    .pump-house-text {
-                        font-size: 14px;
-                        margin-right: 8px;
-                    }
-                }
+    /* Mobile Media Query - Keep existing behavior */
+    @media (max-width: 768px) {
+        .hero-section {
+            background-position: center 20%;
+            background-attachment: scroll;
+            background-size: cover;
+            height: 80vh;
+            min-height: 400px;
+            margin-top: 50px; /* Keep mobile navbar height */
+        }
 
-                /* Hover effects for Pump House text - Only on desktop (not tablet or mobile) */
-                @media (min-width: 1025px) {
-                    .pump-house-text:hover {
-                        transform: scale(1.05);
-                        text-shadow: 
-                            0 0 8px rgba(0, 170, 255, 0.9),
-                            0 0 15px rgba(0, 170, 255, 0.7),
-                            0 0 20px rgba(255, 255, 255, 0.6);
-                    }
-                }
+        .hero-title {
+            font-size: clamp(2rem, 9vw, 3.5rem);
+            line-height: 1.2;
+            text-shadow: 1px 1px 6px rgba(0,0,0,0.4);
+        }
 
-                /* Modal Animation */
-                .modal {
-                    backdrop-filter: blur(5px);
-                }
+        .hero-subtitle {
+            font-size: clamp(1rem, 3.5vw, 1.4rem);
+            line-height: 1.3;
+            margin-bottom: 1rem;
+        }
 
-                .modal-content {
-                    animation: modalAppear 0.3s ease-out;
-                }
+        .hero-top-content {
+            margin-bottom: 2rem;
+        }
 
-                @keyframes modalAppear {
-                    from {
-                        opacity: 0;
-                        transform: scale(0.8);
-                    }
-                    to {
-                        opacity: 1;
-                        transform: scale(1);
-                    }
-                }
+        .hero-main-content {
+            padding: 0 10px;
+        }
+
+        /* Mobile navbar adjustments - buttons aligned left, logo right */
+        nav .container .d-flex {
+            flex-direction: row;
+            justify-content: space-between;
+        }
+
+        nav .d-flex.gap-2 {
+            gap: 0.4rem !important;
+        }
+
+        /* Mobile navbar buttons - keep existing mobile styles */
+        .nav-button {
+            font-size: 0.8rem !important;
+            padding: 8px 12px !important;
+            min-height: 32px !important;
+            font-weight: 600 !important;
+        }
+        
+        nav {
+            min-height: 50px !important;
+        }
+    }
+
+    /* Small Mobile Media Query */
+    @media (max-width: 480px) {
+        .hero-section {
+            background-size: cover;
+            height: 75vh;
+            min-height: 350px;
+            margin-top: 50px;
+        }
+
+        .hero-title {
+            font-size: clamp(1.8rem, 8vw, 2.8rem);
+            line-height: 1.3;
+        }
+
+        .hero-subtitle {
+            font-size: clamp(0.9rem, 3vw, 1.2rem);
+            line-height: 1.4;
+            margin-bottom: 0.8rem;
+        }
+
+        .hero-top-content {
+            margin-bottom: 1.5rem;
+        }
+
+        /* Mobile navbar buttons - further reduced */
+        .nav-button {
+            padding: 6px 10px !important;
+            font-size: 0.75rem !important;
+            min-height: 30px !important;
+        }
+
+        nav .d-flex.gap-2 {
+            gap: 0.3rem !important;
+        }
+    }
+
+    /* Extra Small Mobile */
+    @media (max-width: 360px) {
+        /* Small adjustments for extra small screens */
+        .nav-button {
+            padding: 5px 8px !important;
+            font-size: 0.7rem !important;
+            min-height: 28px !important;
+        }
+    }
+
+    .scroll-indicator-wrapper {
+        bottom: 2rem;
+    }
+
+    @media (max-width: 768px) {
+        .scroll-indicator-wrapper {
+            bottom: 1rem;
+        }
+    }
+
+    @keyframes float {
+        0%, 100% { transform: translateY(0); }
+        50% { transform: translateY(-10px); }
+    }
+
+    .scroll-indicator {
+        width: 30px;
+        height: 50px;
+        border: 2px solid rgba(255, 255, 255, 0.6);
+        border-radius: 25px;
+        position: relative;
+    }
+
+    .scroll-arrow {
+        width: 4px;
+        height: 10px;
+        background: rgba(255, 255, 255, 0.8);
+        border-radius: 2px;
+        position: absolute;
+        top: 10px;
+        left: 50%;
+        transform: translateX(-50%);
+        animation: float 2s ease-in-out infinite;
+    }
+
+    /* Carousel Styles */
+    .carousel-container {
+        max-width: 1000px;
+        margin: 0 auto;
+        overflow: hidden;
+        border-radius: 15px;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        position: relative;
+    }
+
+    .carousel-slides {
+        transition: transform 0.5s ease-in-out;
+    }
+
+    .transition-all {
+        transition: all 0.5s ease-in-out;
+    }
+
+    .carousel-slide {
+        display: flex;
+    }
+
+    .carousel-arrow {
+        background: rgba(26, 82, 118, 0.8);
+        color: white;
+        border: none;
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        font-size: 1.5rem;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: all 0.2s ease;
+        z-index: 10;
+    }
+
+    .carousel-arrow:hover {
+        background: #1a5276;
+        transform: scale(1.1);
+    }
+
+    .carousel-arrow-prev {
+        left: 20px;
+    }
+
+    .carousel-arrow-next {
+        right: 20px;
+    }
+
+    .carousel-indicators {
+        bottom: 20px;
+        display: flex;
+        gap: 10px;
+        z-index: 10;
+    }
+
+    .carousel-indicator {
+        width: 12px;
+        height: 12px;
+        border-radius: 50%;
+        border: none;
+        background: rgba(255, 255, 255, 0.5);
+        cursor: pointer;
+        transition: all 0.2s ease;
+    }
+
+    .carousel-indicator.active {
+        background: #27ae60;
+        transform: scale(1.2);
+    }
+
+    .carousel-indicator:hover {
+        background: #27ae60;
+    }
+
+    /* Mobile Responsiveness for Carousel */
+    @media (max-width: 768px) {
+        .carousel-arrow {
+            width: 44px; /* Larger for touch */
+            height: 44px;
+            font-size: 1.2rem;
+        }
+
+        .carousel-arrow-prev {
+            left: 10px;
+        }
+
+        .carousel-arrow-next {
+            right: 10px;
+        }
+
+        .carousel-slide .card .row {
+            flex-direction: column;
+        }
+
+        .carousel-slide img {
+            min-height: 250px !important;
+        }
+
+        .carousel-indicators {
+            bottom: 10px;
+        }
+
+        .carousel-indicator {
+            width: 14px; /* Larger for touch */
+            height: 14px;
+        }
+    }
+
+    /* Ensure proper section spacing */
+    #services {
+        scroll-margin-top: 60px;
+    }
+
+    #contact {
+        scroll-margin-top: 60px;
+    }
+
+    /* Ensure buttons are properly clickable on all devices */
+    .btn {
+        cursor: pointer;
+        user-select: none;
+        -webkit-tap-highlight-color: transparent;
+    }
+
+    /* NEW NEON GLOW LOGO STYLES - MAXIMIZED SIZE */
+    .logo-container-5 {
+    font-weight: 700;
+    display: flex;
+    line-height: 1;
+    letter-spacing: -1px;
+    position: relative;
+    font-family: 'Consolas', 'Courier New', monospace;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    margin-right: 15px;
+    align-items: center;
+    justify-content: center;
+}
+
+    /* Base styles for all letters in this design */
+    .logo-container-5 span {
+        color: #ffffff; 
+        -webkit-text-stroke: 0.5px #00aaff; 
+        text-shadow: 
+            0 0 5px rgba(0, 170, 255, 0.8),
+            0 0 10px rgba(0, 170, 255, 0.6),
+            0 0 15px rgba(255, 255, 255, 0.4);
+        transform: skewX(-4deg);
+        filter: drop-shadow(0 0 3px rgba(0, 170, 255, 0.5));
+    }
+
+    /* --- Styles for the 'S' letter (Design 5) --- */
+    .logo-s-5 {
+        margin-right: -2px;
+        z-index: 2; 
+    }
+
+    /* --- Styles for the 'A' letter (Design 5) --- */
+    .logo-a-5 {
+        z-index: 1;
+    }
+
+    /* --- Segmented Color Overlay for the 'A' letter --- */
+    .logo-a-5::before {
+        content: 'A';
+        font-family: inherit;
+        font-size: inherit;
+        font-weight: inherit;
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        color: rgba(251, 251, 251, 0.6); 
+        background: linear-gradient(
+            to bottom,
+            #aaaaaa 0%, 
+            #aaaaaa 45%,
+            transparent 45%,
+            transparent 100%
+        );
+        -webkit-background-clip: text;
+        background-clip: text;
+        transform: skewX(-4deg);
+        z-index: 3;
+        text-shadow: 
+            0 0 3px rgba(170, 170, 170, 0.5),
+            0 0 6px rgba(170, 170, 170, 0.3);
+        filter: drop-shadow(0 0 2px rgba(170, 170, 170, 0.3));
+    }
+
+    /* Desktop logo size */
+    .logo-container-5 {
+        font-size: 45px;
+    }
+
+    /* Tablet logo size */
+    @media (max-width: 1024px) and (min-width: 769px) {
+        .logo-container-5 {
+            font-size: 45px;
+        }
+    }
+
+    /* Mobile logo size */
+    @media (max-width: 768px) {
+        .logo-container-5 {
+            font-size: 34px;
+            padding-bottom: 0;
+            padding-top: 0;
+        }
+        
+        .logo-container-5 span {
+            -webkit-text-stroke: 0.4px #00aaff;
+            text-shadow: 
+                0 0 4px rgba(0, 170, 255, 0.8),
+                0 0 8px rgba(0, 170, 255, 0.6),
+                0 0 12px rgba(255, 255, 255, 0.4);
+        }
+    }
+
+    /* Small Mobile logo size */
+    @media (max-width: 480px) {
+        .logo-container-5 {
+            font-size: 30px;
+            margin-right: 10px;
+        }
+    }
+
+    /* Extra Small Mobile logo size */
+    @media (max-width: 360px) {
+        .logo-container-5 {
+            font-size: 28px;
+            margin-right: 8px;
+        }
+    }
+
+    /* Hover effects for the logo - Only on desktop (not tablet or mobile) */
+    @media (min-width: 1025px) {
+        .logo-container-5:hover {
+            transform: scale(1.05);
+        }
+
+        .logo-container-5:hover span {
+            text-shadow: 
+                0 0 8px rgba(0, 170, 255, 0.9),
+                0 0 15px rgba(0, 170, 255, 0.7),
+                0 0 20px rgba(255, 255, 255, 0.6);
+            filter: drop-shadow(0 0 5px rgba(0, 170, 255, 0.7));
+        }
+    }
             `}</style>
         </div>
     );
 };
 
-export default PhotosPage;
+export default HomePage;
