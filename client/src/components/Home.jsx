@@ -271,15 +271,15 @@ const HomePage = () => {
                             </button>
                         </div>
 
-                        {/* SA Logo - aligned to right - MAXIMIZED SIZE */}
-                        <div className="logo-container-5" style={{ marginRight: '15px' }}>
-                            <span className="logo-s-5">S</span>
-                            <span className="logo-a-5">A</span>
+                        {/* PUMP HOUSE Text - Replaced SA Logo */}
+                        <div className="pump-house-text" style={{ marginRight: '15px' }}>
+                            Pump House
                         </div>
                     </div>
                 </div>
             </nav>
 
+            {/* Rest of your HomePage component remains exactly the same */}
             {/* Hero Section */}
             <section
                 className="position-relative d-flex align-items-center justify-content-center overflow-hidden hero-section"
@@ -959,131 +959,106 @@ const HomePage = () => {
         -webkit-tap-highlight-color: transparent;
     }
 
-    /* NEW NEON GLOW LOGO STYLES - MAXIMIZED SIZE */
-    .logo-container-5 {
-    font-weight: 700;
-    display: flex;
-    line-height: 1;
-    letter-spacing: -1px;
-    position: relative;
-    font-family: 'Consolas', 'Courier New', monospace;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    margin-right: 15px;
-    align-items: center;
-    justify-content: center;
-}
-
-    /* Base styles for all letters in this design */
-    .logo-container-5 span {
-        color: #ffffff; 
-        -webkit-text-stroke: 0.5px #00aaff; 
+    /* PUMP HOUSE TEXT STYLES - Replaced SA Logo */
+    .pump-house-text {
+        font-weight: 700;
+        color: #ffffff;
         text-shadow: 
             0 0 5px rgba(0, 170, 255, 0.8),
             0 0 10px rgba(0, 170, 255, 0.6),
             0 0 15px rgba(255, 255, 255, 0.4);
-        transform: skewX(-4deg);
-        filter: drop-shadow(0 0 3px rgba(0, 170, 255, 0.5));
+        letter-spacing: -0.5px;
+        font-family: 'Arial', 'Helvetica', sans-serif;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        margin-right: 15px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-transform: uppercase;
     }
 
-    /* --- Styles for the 'S' letter (Design 5) --- */
-    .logo-s-5 {
-        margin-right: -2px;
-        z-index: 2; 
+    /* Desktop Pump House text size */
+    .pump-house-text {
+        font-size: 24px;
     }
 
-    /* --- Styles for the 'A' letter (Design 5) --- */
-    .logo-a-5 {
-        z-index: 1;
-    }
-
-    /* --- Segmented Color Overlay for the 'A' letter --- */
-    .logo-a-5::before {
-        content: 'A';
-        font-family: inherit;
-        font-size: inherit;
-        font-weight: inherit;
-        position: absolute;
-        top: 0;
-        left: 0;
-        right: 0;
-        bottom: 0;
-        color: rgba(251, 251, 251, 0.6); 
-        background: linear-gradient(
-            to bottom,
-            #aaaaaa 0%, 
-            #aaaaaa 45%,
-            transparent 45%,
-            transparent 100%
-        );
-        -webkit-background-clip: text;
-        background-clip: text;
-        transform: skewX(-4deg);
-        z-index: 3;
-        text-shadow: 
-            0 0 3px rgba(170, 170, 170, 0.5),
-            0 0 6px rgba(170, 170, 170, 0.3);
-        filter: drop-shadow(0 0 2px rgba(170, 170, 170, 0.3));
-    }
-
-    /* Desktop logo size */
-    .logo-container-5 {
-        font-size: 45px;
-    }
-
-    /* Tablet logo size */
+    /* Tablet Pump House text size */
     @media (max-width: 1024px) and (min-width: 769px) {
-        .logo-container-5 {
-            font-size: 45px;
+        .pump-house-text {
+            font-size: 22px;
         }
     }
 
-    /* Mobile logo size */
+    /* Mobile Pump House text size */
     @media (max-width: 768px) {
-        .logo-container-5 {
-            font-size: 34px;
+        .pump-house-text {
+            font-size: 18px;
             padding-bottom: 0;
             padding-top: 0;
         }
-        
-        .logo-container-5 span {
-            -webkit-text-stroke: 0.4px #00aaff;
-            text-shadow: 
-                0 0 4px rgba(0, 170, 255, 0.8),
-                0 0 8px rgba(0, 170, 255, 0.6),
-                0 0 12px rgba(255, 255, 255, 0.4);
-        }
     }
 
-    /* Small Mobile logo size */
+    /* Small Mobile Pump House text size */
     @media (max-width: 480px) {
-        .logo-container-5 {
-            font-size: 30px;
+        .pump-house-text {
+            font-size: 16px;
             margin-right: 10px;
         }
     }
 
-    /* Extra Small Mobile logo size */
+    /* Extra Small Mobile Pump House text size */
     @media (max-width: 360px) {
-        .logo-container-5 {
-            font-size: 28px;
+        .pump-house-text {
+            font-size: 14px;
             margin-right: 8px;
         }
     }
 
-    /* Hover effects for the logo - Only on desktop (not tablet or mobile) */
+    /* Hover effects for Pump House text - Only on desktop (not tablet or mobile) */
     @media (min-width: 1025px) {
-        .logo-container-5:hover {
+        .pump-house-text:hover {
             transform: scale(1.05);
-        }
-
-        .logo-container-5:hover span {
             text-shadow: 
                 0 0 8px rgba(0, 170, 255, 0.9),
                 0 0 15px rgba(0, 170, 255, 0.7),
                 0 0 20px rgba(255, 255, 255, 0.6);
-            filter: drop-shadow(0 0 5px rgba(0, 170, 255, 0.7));
         }
+    }
+
+    .scroll-indicator-wrapper {
+        bottom: 2rem;
+    }
+
+    @media (max-width: 768px) {
+        .scroll-indicator-wrapper {
+            bottom: 1rem;
+        }
+    }
+
+    @keyframes float {
+        0%, 100% { transform: translateY(0); }
+        50% { transform: translateY(-10px); }
+    }
+
+    .scroll-indicator {
+        width: 30px;
+        height: 50px;
+        border: 2px solid rgba(255, 255, 255, 0.6);
+        border-radius: 25px;
+        position: relative;
+    }
+
+    .scroll-arrow {
+        width: 4px;
+        height: 10px;
+        background: rgba(255, 255, 255, 0.8);
+        border-radius: 2px;
+        position: absolute;
+        top: 10px;
+        left: 50%;
+        transform: translateX(-50%);
+        animation: float 2s ease-in-out infinite;
     }
             `}</style>
         </div>
