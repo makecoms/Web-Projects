@@ -71,39 +71,133 @@ const HomePage = () => {
         setCurrentSlide(index);
     };
 
-    // Touch handler for buttons (for mobile and tablet)
-    const handleButtonTouch = (e) => {
+    // Enhanced touch handler for navbar buttons
+    const handleNavButtonTouchStart = (e) => {
         if (isTouchDevice) {
-            e.target.style.backgroundColor = 'rgba(14, 124, 41, 1)';
-            e.target.style.color = 'white';
-            
-            // Reset styles after touch ends
+            const button = e.currentTarget;
+            button.style.transform = 'scale(0.95)';
+            button.style.backgroundColor = 'rgba(14, 124, 41, 1)';
+            button.style.color = 'white';
+            button.style.borderColor = 'rgba(14, 124, 41, 1)';
+            button.style.boxShadow = '0 4px 12px rgba(14, 124, 41, 0.4)';
+        }
+    };
+
+    const handleNavButtonTouchEnd = (e) => {
+        if (isTouchDevice) {
+            const button = e.currentTarget;
             setTimeout(() => {
-                e.target.style.backgroundColor = '';
-                e.target.style.color = 'rgba(0, 0, 0, 1)';
-            }, 300);
+                button.style.transform = 'scale(1)';
+                button.style.backgroundColor = '';
+                button.style.color = 'rgba(0, 0, 0, 1)';
+                button.style.borderColor = 'rgba(74, 72, 72, 1)';
+                button.style.boxShadow = '';
+            }, 150);
         }
     };
 
-    // Mouse handlers (only for desktop)
-    const handleMouseEnter = (e) => {
+    // Enhanced mouse handlers for navbar buttons
+    const handleNavButtonMouseDown = (e) => {
         if (!isTouchDevice) {
-            e.target.style.backgroundColor = 'rgba(14, 124, 41, 1)';
-            e.target.style.color = 'white';
+            const button = e.currentTarget;
+            button.style.transform = 'scale(0.95)';
+            button.style.boxShadow = '0 2px 8px rgba(0, 0, 0, 0.2)';
         }
     };
 
-    const handleMouseLeave = (e) => {
+    const handleNavButtonMouseUp = (e) => {
         if (!isTouchDevice) {
-            e.target.style.backgroundColor = '';
-            e.target.style.color = 'rgba(0, 0, 0, 1)';
+            const button = e.currentTarget;
+            button.style.transform = 'scale(1)';
+            button.style.boxShadow = '';
+        }
+    };
+
+    const handleNavButtonMouseEnter = (e) => {
+        if (!isTouchDevice) {
+            const button = e.currentTarget;
+            button.style.backgroundColor = 'rgba(14, 124, 41, 1)';
+            button.style.color = 'white';
+            button.style.borderColor = 'rgba(14, 124, 41, 1)';
+            button.style.transform = 'translateY(-2px)';
+            button.style.boxShadow = '0 6px 20px rgba(14, 124, 41, 0.3)';
+        }
+    };
+
+    const handleNavButtonMouseLeave = (e) => {
+        if (!isTouchDevice) {
+            const button = e.currentTarget;
+            button.style.backgroundColor = '';
+            button.style.color = 'rgba(0, 0, 0, 1)';
+            button.style.borderColor = 'rgba(74, 72, 72, 1)';
+            button.style.transform = 'translateY(0)';
+            button.style.boxShadow = '';
+        }
+    };
+
+    // Enhanced handlers for CTA buttons
+    const handleCtaButtonTouchStart = (e) => {
+        if (isTouchDevice) {
+            const button = e.currentTarget;
+            button.style.transform = 'translateY(-2px) scale(0.98)';
+            button.style.boxShadow = '0 15px 35px rgba(39, 174, 96, 0.8)';
+        }
+    };
+
+    const handleCtaButtonTouchEnd = (e) => {
+        if (isTouchDevice) {
+            const button = e.currentTarget;
+            setTimeout(() => {
+                button.style.transform = 'translateY(0) scale(1)';
+                button.style.boxShadow = '0 8px 25px rgba(39, 174, 96, 0.4)';
+            }, 150);
+        }
+    };
+
+    const handleCtaButtonMouseEnter = (e) => {
+        if (!isTouchDevice) {
+            const button = e.currentTarget;
+            button.style.transform = 'translateY(-3px)';
+            button.style.boxShadow = '0 15px 35px rgba(39, 174, 96, 0.6)';
+        }
+    };
+
+    const handleCtaButtonMouseLeave = (e) => {
+        if (!isTouchDevice) {
+            const button = e.currentTarget;
+            button.style.transform = 'translateY(0)';
+            button.style.boxShadow = '0 8px 25px rgba(39, 174, 96, 0.4)';
+        }
+    };
+
+    const handleCtaButtonMouseDown = (e) => {
+        if (!isTouchDevice) {
+            const button = e.currentTarget;
+            button.style.transform = 'translateY(-1px) scale(0.98)';
+            button.style.boxShadow = '0 5px 15px rgba(39, 174, 96, 0.8)';
+        }
+    };
+
+    const handleCtaButtonMouseUp = (e) => {
+        if (!isTouchDevice) {
+            const button = e.currentTarget;
+            button.style.transform = 'translateY(-3px) scale(1)';
+            button.style.boxShadow = '0 15px 35px rgba(39, 174, 96, 0.6)';
         }
     };
 
     return (
         <div className="min-vh-100" style={{ backgroundColor: "#dce4ebff" }}>
             {/* Header/Navbar - Reduced height, with logo and buttons */}
-            <nav className="fixed-top w-100" style={{ zIndex: 1050, backgroundColor: "#f0f7f2ff", minHeight: "50px" }}>
+            <nav className="fixed-top w-100" style={{ 
+                zIndex: 1050, 
+                backgroundColor: "#f0f7f2ff", 
+                minHeight: "50px",
+                borderBottom: "2px solid rgba(249, 0, 0, 0.6)", 
+                borderRadius: "0 0 5px 5px",
+                marginTop: "3px",
+                marginBottom: "2px"
+            }}>
                 <div className="container h-100">
                     <div className="d-flex justify-content-between align-items-center h-100 py-1">
                         {/* Buttons - aligned to left - DECREASED SIZE */}
@@ -111,17 +205,21 @@ const HomePage = () => {
                             <button
                                 className="btn btn-outline-light border-2 text-decoration-none px-2 py-1"
                                 onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
-                                onTouchStart={handleButtonTouch}
-                                onMouseEnter={handleMouseEnter}
-                                onMouseLeave={handleMouseLeave}
+                                onTouchStart={handleNavButtonTouchStart}
+                                onTouchEnd={handleNavButtonTouchEnd}
+                                onMouseDown={handleNavButtonMouseDown}
+                                onMouseUp={handleNavButtonMouseUp}
+                                onMouseEnter={handleNavButtonMouseEnter}
+                                onMouseLeave={handleNavButtonMouseLeave}
                                 style={{
                                     color: "rgba(0, 0, 0, 1)",
                                     fontSize: '0.8rem',
                                     borderColor: "rgba(74, 72, 72, 1)",
                                     fontWeight: '500',
-                                    transition: 'all 0.3s ease',
+                                    transition: 'all 0.15s ease',
                                     borderRadius: '8px',
-                                    minHeight: '32px'
+                                    minHeight: '32px',
+                                    cursor: 'pointer'
                                 }}
                             >
                                 Home
@@ -129,17 +227,21 @@ const HomePage = () => {
                             <button
                                 className="btn btn-outline-light border-2 text-decoration-none px-2 py-1"
                                 onClick={scrollToServices}
-                                onTouchStart={handleButtonTouch}
-                                onMouseEnter={handleMouseEnter}
-                                onMouseLeave={handleMouseLeave}
+                                onTouchStart={handleNavButtonTouchStart}
+                                onTouchEnd={handleNavButtonTouchEnd}
+                                onMouseDown={handleNavButtonMouseDown}
+                                onMouseUp={handleNavButtonMouseUp}
+                                onMouseEnter={handleNavButtonMouseEnter}
+                                onMouseLeave={handleNavButtonMouseLeave}
                                 style={{
                                     color: "rgba(0, 0, 0, 1)",
                                     fontSize: '0.8rem',
                                     borderColor: "rgba(74, 72, 72, 1)",
                                     fontWeight: '500',
-                                    transition: 'all 0.3s ease',
+                                    transition: 'all 0.15s ease',
                                     borderRadius: '8px',
-                                    minHeight: '32px'
+                                    minHeight: '32px',
+                                    cursor: 'pointer'
                                 }}
                             >
                                 Services
@@ -148,17 +250,21 @@ const HomePage = () => {
                             <button
                                 className="btn btn-outline-light border-2 text-decoration-none px-2 py-1 d-none d-md-block"
                                 onClick={scrollToContact}
-                                onTouchStart={handleButtonTouch}
-                                onMouseEnter={handleMouseEnter}
-                                onMouseLeave={handleMouseLeave}
+                                onTouchStart={handleNavButtonTouchStart}
+                                onTouchEnd={handleNavButtonTouchEnd}
+                                onMouseDown={handleNavButtonMouseDown}
+                                onMouseUp={handleNavButtonMouseUp}
+                                onMouseEnter={handleNavButtonMouseEnter}
+                                onMouseLeave={handleNavButtonMouseLeave}
                                 style={{
                                     color: "rgba(0, 0, 0, 1)",
                                     fontSize: '0.8rem',
                                     borderColor: "rgba(74, 72, 72, 1)",
                                     fontWeight: '500',
-                                    transition: 'all 0.3s ease',
+                                    transition: 'all 0.15s ease',
                                     borderRadius: '8px',
-                                    minHeight: '32px'
+                                    minHeight: '32px',
+                                    cursor: 'pointer'
                                 }}
                             >
                                 Contact
@@ -210,37 +316,20 @@ const HomePage = () => {
                                             <button
                                                 className="btn btn-lg px-5 py-3 rounded-pill fw-bold"
                                                 onClick={scrollToContact}
-                                                onTouchStart={(e) => {
-                                                    if (isTouchDevice) {
-                                                        e.target.style.transform = 'translateY(-2px)';
-                                                        e.target.style.boxShadow = '0 12px 30px rgba(39, 174, 96, 0.6)';
-                                                    }
-                                                }}
-                                                onTouchEnd={(e) => {
-                                                    if (isTouchDevice) {
-                                                        e.target.style.transform = 'translateY(0)';
-                                                        e.target.style.boxShadow = '0 8px 25px rgba(39, 174, 96, 0.4)';
-                                                    }
-                                                }}
-                                                onMouseEnter={(e) => {
-                                                    if (!isTouchDevice) {
-                                                        e.target.style.transform = 'translateY(-2px)';
-                                                        e.target.style.boxShadow = '0 12px 30px rgba(39, 174, 96, 0.6)';
-                                                    }
-                                                }}
-                                                onMouseLeave={(e) => {
-                                                    if (!isTouchDevice) {
-                                                        e.target.style.transform = 'translateY(0)';
-                                                        e.target.style.boxShadow = '0 8px 25px rgba(39, 174, 96, 0.4)';
-                                                    }
-                                                }}
+                                                onTouchStart={handleCtaButtonTouchStart}
+                                                onTouchEnd={handleCtaButtonTouchEnd}
+                                                onMouseDown={handleCtaButtonMouseDown}
+                                                onMouseUp={handleCtaButtonMouseUp}
+                                                onMouseEnter={handleCtaButtonMouseEnter}
+                                                onMouseLeave={handleCtaButtonMouseLeave}
                                                 style={{
                                                     fontSize: '1.1rem',
                                                     background: 'linear-gradient(135deg, #27ae60 0%, #2ecc71 100%)',
                                                     border: 'none',
                                                     boxShadow: '0 8px 25px rgba(39, 174, 96, 0.4)',
                                                     color: 'white',
-                                                    transition: 'all 0.3s ease'
+                                                    transition: 'all 0.2s ease',
+                                                    cursor: 'pointer'
                                                 }}
                                             >
                                                 Contact Us
@@ -297,12 +386,22 @@ const HomePage = () => {
                                                                 onClick={scrollToContact}
                                                                 onTouchStart={(e) => {
                                                                     if (isTouchDevice) {
-                                                                        e.target.style.transform = 'translateY(-2px)';
+                                                                        e.target.style.transform = 'translateY(-2px) scale(0.98)';
                                                                     }
                                                                 }}
                                                                 onTouchEnd={(e) => {
                                                                     if (isTouchDevice) {
-                                                                        e.target.style.transform = 'translateY(0)';
+                                                                        e.target.style.transform = 'translateY(0) scale(1)';
+                                                                    }
+                                                                }}
+                                                                onMouseDown={(e) => {
+                                                                    if (!isTouchDevice) {
+                                                                        e.target.style.transform = 'translateY(-1px) scale(0.98)';
+                                                                    }
+                                                                }}
+                                                                onMouseUp={(e) => {
+                                                                    if (!isTouchDevice) {
+                                                                        e.target.style.transform = 'translateY(-2px) scale(1)';
                                                                     }
                                                                 }}
                                                                 onMouseEnter={(e) => {
@@ -316,7 +415,8 @@ const HomePage = () => {
                                                                     }
                                                                 }}
                                                                 style={{
-                                                                    transition: 'all 0.3s ease'
+                                                                    transition: 'all 0.2s ease',
+                                                                    cursor: 'pointer'
                                                                 }}
                                                             >
                                                                 Learn More
@@ -333,12 +433,60 @@ const HomePage = () => {
                                 <button
                                     className="carousel-arrow carousel-arrow-prev position-absolute top-50 start-0 translate-middle-y"
                                     onClick={prevSlide}
+                                    onTouchStart={(e) => {
+                                        if (isTouchDevice) {
+                                            e.target.style.transform = 'translateY(-50%) scale(0.9)';
+                                            e.target.style.backgroundColor = 'rgba(26, 82, 118, 1)';
+                                        }
+                                    }}
+                                    onTouchEnd={(e) => {
+                                        if (isTouchDevice) {
+                                            e.target.style.transform = 'translateY(-50%) scale(1)';
+                                            e.target.style.backgroundColor = 'rgba(26, 82, 118, 0.8)';
+                                        }
+                                    }}
+                                    onMouseEnter={(e) => {
+                                        if (!isTouchDevice) {
+                                            e.target.style.transform = 'translateY(-50%) scale(1.1)';
+                                            e.target.style.backgroundColor = '#1a5276';
+                                        }
+                                    }}
+                                    onMouseLeave={(e) => {
+                                        if (!isTouchDevice) {
+                                            e.target.style.transform = 'translateY(-50%) scale(1)';
+                                            e.target.style.backgroundColor = 'rgba(26, 82, 118, 0.8)';
+                                        }
+                                    }}
                                 >
                                     ‹
                                 </button>
                                 <button
                                     className="carousel-arrow carousel-arrow-next position-absolute top-50 end-0 translate-middle-y"
                                     onClick={nextSlide}
+                                    onTouchStart={(e) => {
+                                        if (isTouchDevice) {
+                                            e.target.style.transform = 'translateY(-50%) scale(0.9)';
+                                            e.target.style.backgroundColor = 'rgba(26, 82, 118, 1)';
+                                        }
+                                    }}
+                                    onTouchEnd={(e) => {
+                                        if (isTouchDevice) {
+                                            e.target.style.transform = 'translateY(-50%) scale(1)';
+                                            e.target.style.backgroundColor = 'rgba(26, 82, 118, 0.8)';
+                                        }
+                                    }}
+                                    onMouseEnter={(e) => {
+                                        if (!isTouchDevice) {
+                                            e.target.style.transform = 'translateY(-50%) scale(1.1)';
+                                            e.target.style.backgroundColor = '#1a5276';
+                                        }
+                                    }}
+                                    onMouseLeave={(e) => {
+                                        if (!isTouchDevice) {
+                                            e.target.style.transform = 'translateY(-50%) scale(1)';
+                                            e.target.style.backgroundColor = 'rgba(26, 82, 118, 0.8)';
+                                        }
+                                    }}
                                 >
                                     ›
                                 </button>
@@ -350,6 +498,16 @@ const HomePage = () => {
                                             key={index}
                                             className={`carousel-indicator ${index === currentSlide ? 'active' : ''}`}
                                             onClick={() => goToSlide(index)}
+                                            onTouchStart={(e) => {
+                                                if (isTouchDevice) {
+                                                    e.target.style.transform = 'scale(1.3)';
+                                                }
+                                            }}
+                                            onTouchEnd={(e) => {
+                                                if (isTouchDevice) {
+                                                    e.target.style.transform = 'scale(1.2)';
+                                                }
+                                            }}
                                         />
                                     ))}
                                 </div>
@@ -381,6 +539,9 @@ const HomePage = () => {
                                         target="_blank"
                                         rel="noopener noreferrer"
                                         className="text-white text-decoration-none opacity-90 small"
+                                        style={{ transition: 'opacity 0.2s ease' }}
+                                        onMouseEnter={(e) => e.target.style.opacity = '1'}
+                                        onMouseLeave={(e) => e.target.style.opacity = '0.9'}
                                     >
                                         Harshitha Complex Urlandi <br /> Bypass Road, Puttur 574201
                                     </a>
@@ -390,6 +551,9 @@ const HomePage = () => {
                                     <a
                                         href="tel:+918904815080"
                                         className="text-white text-decoration-none opacity-90 small"
+                                        style={{ transition: 'opacity 0.2s ease' }}
+                                        onMouseEnter={(e) => e.target.style.opacity = '1'}
+                                        onMouseLeave={(e) => e.target.style.opacity = '0.9'}
                                     >
                                         +91 8904815080
                                     </a>
@@ -399,6 +563,9 @@ const HomePage = () => {
                                     <a
                                         href="mailto:shrinidhiiautomations@gmail.com"
                                         className="text-white text-decoration-none opacity-90 small"
+                                        style={{ transition: 'opacity 0.2s ease' }}
+                                        onMouseEnter={(e) => e.target.style.opacity = '1'}
+                                        onMouseLeave={(e) => e.target.style.opacity = '0.9'}
                                     >
                                         shrinidhiiautomations@gmail.com
                                     </a>
@@ -512,14 +679,13 @@ const HomePage = () => {
             margin-bottom: 2.5rem;
         }
 
-        /* Remove hover effects on tablet and mobile */
-        @media (hover: none) and (pointer: coarse) {
-            .btn:hover {
-                background-color: inherit !important;
-                color: inherit !important;
-                transform: none !important;
-                box-shadow: none !important;
-            }
+        /* Enhanced button effects for tablet */
+        nav .btn:active {
+            transform: scale(0.95) !important;
+            background-color: rgba(14, 124, 41, 1) !important;
+            color: white !important;
+            border-color: rgba(14, 124, 41, 1) !important;
+            transition: all 0.1s ease !important;
         }
     }
 
@@ -570,14 +736,13 @@ const HomePage = () => {
             padding: 8px 12px !important; /* Reduced padding */
         }
 
-        /* Remove hover effects on mobile and tablet */
-        @media (hover: none) and (pointer: coarse) {
-            .btn:hover {
-                background-color: inherit !important;
-                color: inherit !important;
-                transform: none !important;
-                box-shadow: none !important;
-            }
+        /* Enhanced mobile button effects */
+        nav .btn:active {
+            transform: scale(0.95) !important;
+            background-color: rgba(14, 124, 41, 1) !important;
+            color: white !important;
+            border-color: rgba(14, 124, 41, 1) !important;
+            transition: all 0.1s ease !important;
         }
     }
 
@@ -694,7 +859,7 @@ const HomePage = () => {
         display: flex;
         align-items: center;
         justify-content: center;
-        transition: all 0.3s ease;
+        transition: all 0.2s ease;
         z-index: 10;
     }
 
@@ -725,7 +890,7 @@ const HomePage = () => {
         border: none;
         background: rgba(255, 255, 255, 0.5);
         cursor: pointer;
-        transition: all 0.3s ease;
+        transition: all 0.2s ease;
     }
 
     .carousel-indicator.active {
@@ -801,6 +966,16 @@ const HomePage = () => {
             align-items: center;
             justify-content: center;
         }
+
+        /* Enhanced mobile/tablet button click effects */
+        nav .btn:active {
+            transform: scale(0.95);
+            background-color: rgba(14, 124, 41, 1) !important;
+            color: white !important;
+            border-color: rgba(14, 124, 41, 1) !important;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3) !important;
+            transition: all 0.1s ease !important;
+        }
     }
 
     /* NEW NEON GLOW LOGO STYLES - MAXIMIZED SIZE */
@@ -861,7 +1036,7 @@ const HomePage = () => {
         bottom: 0;
         
         /* The 'A' upper segment color is grey/silver */
-        color: #aaaaaa; 
+        color: rgba(251, 251, 251, 0.6); 
         
         /* Cut off the grey color at 45% */
         background: linear-gradient(
@@ -943,6 +1118,31 @@ const HomePage = () => {
                 0 0 20px rgba(255, 255, 255, 0.6);
             filter: drop-shadow(0 0 5px rgba(0, 170, 255, 0.7));
         }
+    }
+
+    /* Enhanced button effects for all devices */
+    .btn {
+        position: relative;
+        overflow: hidden;
+    }
+
+    /* Ripple effect for buttons */
+    .btn::after {
+        content: '';
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        width: 0;
+        height: 0;
+        border-radius: 50%;
+        background: rgba(255, 255, 255, 0.3);
+        transform: translate(-50%, -50%);
+        transition: width 0.3s, height 0.3s;
+    }
+
+    .btn:active::after {
+        width: 100px;
+        height: 100px;
     }
             `}</style>
         </div>
