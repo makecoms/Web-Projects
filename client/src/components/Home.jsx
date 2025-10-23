@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { Link } from 'react-router-dom';
 import heroBackground from "/images/logob.webp";
 
 const HomePage = () => {
@@ -27,10 +28,10 @@ const HomePage = () => {
     useEffect(() => {
         const checkTouchDevice = () => {
             // Check for touch support or if screen width is tablet/mobile (1024px and below)
-            const isTouch = 'ontouchstart' in window || 
-                           navigator.maxTouchPoints > 0 || 
-                           navigator.msMaxTouchPoints > 0 ||
-                           window.innerWidth <= 1024;
+            const isTouch = 'ontouchstart' in window ||
+                navigator.maxTouchPoints > 0 ||
+                navigator.msMaxTouchPoints > 0 ||
+                window.innerWidth <= 1024;
             setIsTouchDevice(isTouch);
         };
 
@@ -40,14 +41,14 @@ const HomePage = () => {
         return () => window.removeEventListener('resize', checkTouchDevice);
     }, []);
 
-   // Auto-slide functionality
-useEffect(() => {
-    const interval = setInterval(() => {
-        setCurrentSlide((prev) => (prev + 1) % services.length);
-    }, 2000); 
+    // Auto-slide functionality
+    useEffect(() => {
+        const interval = setInterval(() => {
+            setCurrentSlide((prev) => (prev + 1) % services.length);
+        }, 2000);
 
-    return () => clearInterval(interval);
-}, [services.length]);
+        return () => clearInterval(interval);
+    }, [services.length]);
 
     const scrollToServices = () => {
         const servicesSection = document.getElementById("services");
@@ -188,8 +189,8 @@ useEffect(() => {
     return (
         <div className="min-vh-100" style={{ backgroundColor: "#dce4ebff" }}>
             {/* Header/Navbar - Different color than buttons */}
-            <nav className="fixed-top w-100" style={{ 
-                zIndex: 1050, 
+            <nav className="fixed-top w-100" style={{
+                zIndex: 1050,
                 backgroundColor: "#79b92cff",
                 minHeight: "60px",
                 borderBottom: "2px solid rgba(255, 255, 255, 0.6)"
@@ -198,28 +199,31 @@ useEffect(() => {
                     <div className="d-flex justify-content-between align-items-center h-100 py-1">
                         {/* Buttons - White with black text, blue click effect */}
                         <div className="d-flex gap-2 gap-md-3">
-                            <button
-    className="btn btn-outline-light border-2 text-decoration-none nav-button"
-    onClick={() => window.location.href = '/Photos'}
-    onTouchStart={handleNavButtonTouchStart}
-    onTouchEnd={handleNavButtonTouchEnd}
-    onMouseDown={handleNavButtonMouseDown}
-    onMouseUp={handleNavButtonMouseUp}
-    onMouseEnter={handleNavButtonMouseEnter}
-    onMouseLeave={handleNavButtonMouseLeave}
-    style={{
-        marginTop: '5px',
-        color: "rgba(0, 0, 0, 1)",
-        borderColor: "rgba(74, 72, 72, 1)",
-        fontWeight: '600',
-        transition: 'all 0.15s ease',
-        borderRadius: '8px',
-        cursor: 'pointer',
-        backgroundColor: 'rgba(241, 238, 238, 1)'
-    }}
->
-    Photos
-</button>
+                            <Link
+                                to="/Photos"
+                                className="btn btn-outline-light border-2 text-decoration-none nav-button"
+                                style={{
+                                    marginTop: '5px',
+                                    color: "rgba(0, 0, 0, 1)",
+                                    borderColor: "rgba(74, 72, 72, 1)",
+                                    fontWeight: '600',
+                                    transition: 'all 0.15s ease',
+                                    borderRadius: '8px',
+                                    cursor: 'pointer',
+                                    backgroundColor: 'rgba(241, 238, 238, 1)',
+                                    display: 'inline-block', // Added for proper button styling
+                                    textAlign: 'center', // Added for proper text alignment
+                                    textDecoration: 'none' // Ensure no underline
+                                }}
+                                onTouchStart={handleNavButtonTouchStart}
+                                onTouchEnd={handleNavButtonTouchEnd}
+                                onMouseDown={handleNavButtonMouseDown}
+                                onMouseUp={handleNavButtonMouseUp}
+                                onMouseEnter={handleNavButtonMouseEnter}
+                                onMouseLeave={handleNavButtonMouseLeave}
+                            >
+                                Photos
+                            </Link>
                             <button
                                 className="btn btn-outline-light border-2 text-decoration-none nav-button"
                                 onClick={scrollToServices}
@@ -530,7 +534,7 @@ useEffect(() => {
                             <div className="d-flex flex-column gap-2 gap-md-3">
                                 <div className="d-flex align-items-start gap-2">
                                     <span className="mt-1 small">📍</span>
-                                    <a 
+                                    <a
                                         href="https://maps.app.goo.gl/152Eq3eizUyfK68s9?g_st=ipc"
                                         target="_blank"
                                         rel="noopener noreferrer"
@@ -572,7 +576,7 @@ useEffect(() => {
 
                     <div className="border-top border-secondary pt-3 pt-md-4 text-center">
                         <p className="opacity-80 mb-0 small">
-                             Shrinidhii Automations | Expertise in Irrigation Automation
+                            Shrinidhii Automations | Expertise in Irrigation Automation
                         </p>
                     </div>
                 </div>
