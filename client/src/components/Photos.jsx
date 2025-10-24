@@ -272,7 +272,7 @@ const PhotosPage = () => {
                                 style={{
                                     marginTop: '5px',
                                     color: "rgba(0, 0, 0, 1)",
-                                    borderColor: "rgba(74, 72, 72, 1)",
+                                    borderColor: "rgba(255, 255, 255, 1)",
                                     fontWeight: '600',
                                     transition: 'all 0.15s ease',
                                     borderRadius: '8px',
@@ -298,7 +298,7 @@ const PhotosPage = () => {
                                 style={{
                                     marginTop: '5px',
                                     color: "rgba(0, 0, 0, 1)",
-                                    borderColor: "rgba(74, 72, 72, 1)",
+                                    borderColor: "rgba(255, 255, 255, 1)",
                                     fontWeight: '600',
                                     transition: 'all 0.15s ease',
                                     borderRadius: '8px',
