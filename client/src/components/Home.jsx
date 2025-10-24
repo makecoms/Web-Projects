@@ -191,9 +191,9 @@ const HomePage = () => {
             {/* Header/Navbar - Different color than buttons */}
             <nav className="fixed-top w-100" style={{
                 zIndex: 1050,
-                backgroundColor: "#79b92cff",
+                backgroundColor: "rgba(156, 172, 136, 1)",
                 minHeight: "60px",
-                borderBottom: "2px solid rgba(255, 255, 255, 0.6)"
+                borderBottom: "2px solid rgba(169, 119, 119, 0.6)"
             }}>
                 <div className="container h-100">
                     <div className="d-flex justify-content-between align-items-center h-100 py-1">
