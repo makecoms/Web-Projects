@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { Link } from 'react-router-dom';
+
 const PhotosPage = () => {
     const [isTouchDevice, setIsTouchDevice] = useState(false);
 
@@ -19,26 +20,99 @@ const PhotosPage = () => {
         },
         {
             id: 3,
-            src: "/images/Pumpsets.webp",
+            src: "/images/WhatsApp Image 2025-10-23 at 23.43.14_2005f915.webp",
             alt: "Agricultural Pump Sets",
-            category: "Pump Sets"
+            category: "Field Work"
         },
+        // Additional Field Work Photos
         {
             id: 4,
-            src: "/images/service-controller.webp",
-            alt: "Irrigation Control Systems",
-            category: "Control Systems"
+            src: "/images/WhatsApp Image 2025-10-23 at 23.45.03_abc56cb1.webp",
+            alt: "Farm Irrigation System Installation",
+            category: "Field Work"
         },
         {
             id: 5,
-            src: "/images/solar pump.webp",
-            alt: "Solar Powered Pumps",
-            category: "Solar Solutions"
+            src: "/images/WhatsApp Image 2025-10-23 at 23.45.03_abc56cb1.webp",
+            alt: "Agricultural Pump Installation",
+            category: "Field Work"
+        },
+        {
+            id: 6,
+            src: "/images/WhatsApp Image 2025-10-23 at 23.45.49_e967c065.webp",
+            alt: "Crop Field Automation",
+            category: "Field Work"
+        },
+        {
+            id: 7,
+            src: "/images/WhatsApp Image 2025-10-23 at 23.46.10_d9d84c76.webp",
+            alt: "Water Pump Setup",
+            category: "Field Work"
+        },
+        {
+            id: 8,
+            src: "/images/WhatsApp Image 2025-10-23 at 23.46.27_549a383e.webp",
+            alt: "Irrigation Control Panel",
+            category: "Field Work"
+        },
+        {
+            id: 9,
+            src: "/images/WhatsApp Image 2025-10-23 at 23.46.57_92456441.webp",
+            alt: "Farm Automation Solution",
+            category: "Field Work"
+        },
+        {
+            id: 10,
+            src: "/images/WhatsApp Image 2025-10-23 at 23.46.57_92456441.webp",
+            alt: "Agricultural Motor Installation",
+            category: "Field Work"
+        },
+        {
+            id: 11,
+            src: "/images/WhatsApp Image 2025-10-23 at 23.47.55_037aef52.webp",
+            alt: "Field Irrigation Project",
+            category: "Field Work"
+        },
+        {
+            id: 12,
+            src: "/images/WhatsApp Image 2025-10-23 at 23.48.37_3eb28a39.webp",
+            alt: "Pump House Setup",
+            category: "Field Work"
+        },
+        {
+            id: 13,
+            src: "/images/WhatsApp Image 2025-10-23 at 23.50.20_adef1ab2.webp",
+            alt: "Agricultural Electrical Work",
+            category: "Field Work"
+        },
+        {
+            id: 14,
+            src: "/images/WhatsApp Image 2025-10-23 at 23.51.42_dfe0180d.webp",
+            alt: "Farm Water Management",
+            category: "Field Work"
+        },
+        {
+            id: 15,
+            src: "/images/WhatsApp Image 2025-10-23 at 23.52.33_cc8b000e.webp",
+            alt: "Irrigation System Maintenance",
+            category: "Field Work"
+        },
+        {
+            id: 16,
+            src: "/images/WhatsApp Image 2025-10-23 at 23.53.07_381915da.webp",
+            alt: "Agricultural Automation Project",
+            category: "Field Work"
+        },
+        {
+            id: 17,
+            src: "/images/WhatsApp Image 2025-10-23 at 23.53.36_20f8c361.webp",
+            alt: "Agricultural Automation Project",
+            category: "Field Work"
         }
     ];
 
     // Create categories from the photos data + "All" category
-    const categories = ["All", ...photos.map(photo => photo.category)];
+    const categories = ["All", ...new Set(photos.map(photo => photo.category))];
     const [selectedCategory, setSelectedCategory] = useState("All");
     const [selectedImage, setSelectedImage] = useState(null);
 
@@ -178,7 +252,7 @@ const PhotosPage = () => {
             {/* Header/Navbar - Updated with only Home and Contact buttons */}
             <nav className="fixed-top w-100" style={{
                 zIndex: 1050,
-                backgroundColor: "#79b92cff",
+                backgroundColor: "rgba(156, 172, 136, 1)",
                 minHeight: "60px",
                 borderBottom: "2px solid rgba(255, 255, 255, 0.6)"
             }}>
