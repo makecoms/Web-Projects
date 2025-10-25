@@ -284,7 +284,7 @@ const HomePage = () => {
             <section
                 className="position-relative d-flex align-items-center justify-content-center overflow-hidden hero-section"
                 style={{
-                    backgroundImage: `linear-gradient(rgba(25, 58, 35, 0.7), rgba(244, 184, 115, 0.5)), url(${heroBackground})`,
+                    backgroundImage: `linear-gradient(rgba(173, 173, 173, 0), rgba(66, 108, 54, 0.5)), url(${heroBackground})`,
                 }}
             >
                 <div className="position-relative text-center text-white w-100 h-100 d-flex flex-column justify-content-center" style={{ zIndex: 10 }}>
