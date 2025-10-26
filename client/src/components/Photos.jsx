@@ -303,7 +303,7 @@ const PhotosPage = () => {
                                     transition: 'all 0.15s ease',
                                     borderRadius: '8px',
                                     cursor: 'pointer',
-                                    backgroundColor: 'rgba(255, 255, 255, 1)'
+                                    backgroundColor: 'rgba(241, 238, 238, 1)'
                                 }}
                             >
                                 Contact
