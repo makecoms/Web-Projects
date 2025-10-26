@@ -191,7 +191,7 @@ const HomePage = () => {
             {/* Header/Navbar - Different color than buttons */}
             <nav className="fixed-top w-100" style={{
                 zIndex: 1050,
-                backgroundColor: "rgba(156, 172, 136, 1)",
+                backgroundColor: "rgba(255, 255, 255, 1)",
                 minHeight: "60px",
                 borderBottom: "2px solid rgba(169, 119, 119, 0.6)"
             }}>
@@ -241,7 +241,7 @@ const HomePage = () => {
                                     transition: 'all 0.15s ease',
                                     borderRadius: '8px',
                                     cursor: 'pointer',
-                                    backgroundColor: 'rgba(255, 255, 255, 1)'
+                                    backgroundColor: 'rgba(241, 238, 238, 1)'
                                 }}
                             >
                                 Services
@@ -264,7 +264,7 @@ const HomePage = () => {
                                     transition: 'all 0.15s ease',
                                     borderRadius: '8px',
                                     cursor: 'pointer',
-                                    backgroundColor: 'rgba(255, 255, 255, 1)'
+                                    backgroundColor: 'rgba(241, 238, 238, 1)'
                                 }}
                             >
                                 Contact
